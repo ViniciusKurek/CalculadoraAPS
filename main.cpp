@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Calculator.hpp"
-#include "CPU.hpp"
-#include "Display.hpp"
-#include "Key.hpp"
-#include "Keyboard.hpp"
+#include "Calculator Components\Calculator.hpp"
+#include "Calculator Components\CPU.hpp"
+#include "Calculator Components\Display.hpp"
+#include "Calculator Components\Key.hpp"
+#include "Calculator Components\Keyboard.hpp"
 
 using namespace std; 
 
@@ -11,8 +11,14 @@ using namespace std;
 // Encapsulamento: Esconder coisas dentro de uma capsula (a classe).
 
 int main(int argc, char** argv){
+
+    CPU cpu1;
+    Keyboard keyboard1;
+
+
+    keyboard1.setCPU(&cpu1);
     Calculator c1;
-    c1.keyboard1.getKey();
+    
 
 
     return 0;
