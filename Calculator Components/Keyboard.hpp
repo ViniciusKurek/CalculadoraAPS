@@ -2,7 +2,7 @@
 #include "Key.hpp"
 #include "CPU.hpp"
 #include <vector>
-
+#include "utils.hpp"
 
 
 using namespace std; 
@@ -13,6 +13,8 @@ class Keyboard{ // Contains the buttons
     char keyCount = 0;    
 
     CPU* cpu;
+
+    
     public:
     Keyboard(CPU* cpu){setCPU(cpu);};
     Key getKey(Symbol s);
@@ -22,7 +24,7 @@ class Keyboard{ // Contains the buttons
 
     bool receive(Digit);
 
-    void setCPU(CPU* cpu){if(cpu!=NULL)this->cpu= cpu;};
+    void setCPU(CPU* cpu){if(cpu!=NULL)this->cpu=cpu;};
     CPU* getCPU();
 
 };                      

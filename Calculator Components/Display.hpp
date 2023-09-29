@@ -1,12 +1,13 @@
-#include <iostream>
-
+#pragma once
+#include "utils.hpp" 
 
 using namespace std; 
 
 class Display{ // Shows the output.
-    
+
 
     public:
-    void show(Digit);
+    void add(Digit);
+    void setDecimalSeparator();
     void clear();
 };
