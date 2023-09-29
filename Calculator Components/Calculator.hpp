@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "CPU.hpp"
 #include "Display.hpp"
@@ -9,9 +10,10 @@ using namespace std;
 class Calculator{ // Assembler class.
     Display display1;
     CPU cpu1;
-    public:
     Keyboard keyboard1;
+    
+    public:
 
-   
+
 
 };
