@@ -12,9 +12,13 @@ using namespace std;
 
 int main(int argc, char** argv){
     Display display1;
-    display1.add(ZERO);
+
+    display1.add(TWO);
+    display1.add(FOUR);
+    display1.add(THREE);
+    display1.add(FOUR);
+
     display1.clear();
-    display1.add(ZERO);
 
     // CPU cpu1;
     // Keyboard keyboard1;
