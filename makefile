@@ -1,2 +1,2 @@
 all:
-	g++ main.cpp "Calculator Components\Display.cpp" -o main
+	g++ main.cpp "Calculator Components\*.cpp" -o main
