@@ -8,9 +8,9 @@
 using namespace std; 
 
 class Calculator{ // Assembler class.
-    Display display1;
-    CPU cpu1;
-    Keyboard keyboard1;
+    Display display;
+    CPU cpu;
+    Keyboard keyboard;
     
     public:
 

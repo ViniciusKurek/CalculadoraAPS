@@ -1,58 +1,76 @@
 #include "Display.hpp"
-#include <iostream>
 #include "Console.hpp"
-using namespace std; 
+
+#include <iostream>
+#include <string>
+
+std::string symbols[][5] = { 
+  {"████", "█  █", "█  █" , "█  █" , "████"},
+  {"   █", "   █", "   █" , "   █" , "   █"},
+  {"████", "   █", "████" , "█   " , "████"},
+  {"████", "   █", " ███" , "   █" , "████"},
+  {"█  █", "█  █", "████" , "   █" , "   █"},
+  {"████", "█   ", "████" , "   █" , "████"},
+  {"████", "█   ", "████" , "█  █" , "████"},
+  {"████", "   █", "   █" , "   █" , "   █"},
+  {"████", "█  █", "████" , "█  █" , "████"},
+  {"████", "█  █", "████" , "   █" , "████"},
+  {"████", "█   ", "███ " , "█   " , "████"}
+};
 
 void Display::add(Digit digit){
-    this->digits[this->digitCount++] = digit;
-    this->showDigits();
-    
-    
+  this->digits[this->digitsCount++] = digit;
+  this->showDigits();
 }
-
 void Display::setDecimalSeparator(){
-    cout << "\n\n\n\n\n\n\n.\n";
+  if(this->decimalSeparatorPosition == 0)
+    this->decimalSeparatorPosition = this->digitsCount; 
 }
 
 void Display::clear(){
-    this->digitCount = 0;
-    cout << "\n\n\n\n\n\n\n\n\n\n";
-}
-
-void Display::setMemory(bool){
-
-}
-
-void Display::setNegative(bool){
-
-}
-
-void Display::setError(bool){
-
+  this->digitsCount = 0;
+  this->decimalSeparatorPosition = 0;
+  this->showDigits();
 }
 
 void Display::showDigits(){
-    // Console::setColor(Color::BG_Green);
-    // Console::setColor(Color::FG_White);
-    Console::clearScreen();
+  Console::setColor(Color::BG_Green);  
+  Console::setColor(Color::FG_Red);  
+  Console::clearScreen();
 
-    for(int i=0; i < this->digitCount; i++){
-        switch(this->digits[i]){
-
-        case ZERO: cout << " 0000\n0    0\n0    0\n0    0\n0    0\n0    0\n0    0\n 0000\n"; break;
-        case ONE: cout << "    \n     1\n     1\n     1\n     1\n     1\n     1\n"; break;
-        case TWO: cout << " 2222\n     2\n     2\n     2\n 2222\n2\n2\n2\n 2222\n"; break;
-        case THREE: cout << " 3333\n     3\n     3\n     3\n 3333\n     3\n     3\n     3\n 3333\n"; break;
-        case FOUR: cout << "    \n4    4 \n4    4\n4    4\n 4444\n     4\n     4\n     4\n\n"; break;
-        case FIVE: cout << " 5555\n5\n5\n5\n 5555\n     5\n     5\n     5\n 5555\n"; break;
-        case SIX: cout << " 6666\n6\n6\n6\n 6666\n6     6\n6     6\n6     6\n 6666\n"; break;
-        case SEVEN: cout << " 7777\n     7\n     7\n     7\n     7\n     7\n     7\n"; break;
-        case EIGHT: cout << " 8888\n8    8\n8    8\n8    8\n 8888\n8    8\n8    8\n8    8\n 8888\n"; break;
-        case NINE: cout << " 9999\n4    9\n4    9\n4    9\n 9999\n     9\n     9\n     9\n"; break;
-        default:
-            cout << "ERROR";
-    }
-    }
-
+  for(int i= 0; i < this->digitsCount; i++){ 
+    switch(this->digits[i]){
+      case ZERO: this->showDigit(0, 1, i); break;
+      case ONE: this->showDigit(1, 1, i); break;
+      case TWO: this->showDigit(2, 1, i); break;
+     default:
+       this->showDigit(10, 1, i); break;
+   }
+  }
 }
 
+void Display::showDigit(int digitIndex, int row, int col){
+  for(int i = 0; i < 5; i++){
+    Console::setCursor(row+i, col*6);
+    std::cout << symbols[digitIndex][i];  
+  }
+  if(this->decimalSeparatorPosition == col+1){
+   std::cout << "▗";  
+  } 
+ }
+
+    void Display::setMemory(bool){ 
+    }
+    void Display::setNegative(bool){ 
+    }
+    void Display::setError(bool){ 
+    }
+
+
+
+ //  switch(digit){
+ //    case ZERO: std::cout << "😀😀😀😀\n😀    😀\n0  0\n0  0\n0000\n"; break;
+ //    case ONE: std::cout << "   1\n   1\n   1\n   1\n   1\n"; break;
+ //    default:
+ //       std::cout << "ERROR";
+ // }
