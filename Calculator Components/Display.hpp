@@ -1,21 +1,22 @@
-#pragma once
-#include "utils.hpp" 
+#include "utils.hpp"
 
-using namespace std; 
+class Display{
+    
+protected:
+   Digit digits[8];
+   unsigned char digitsCount = 0;
+   unsigned char decimalSeparatorPosition = 0;
 
-class Display{ // Shows the output.
-    Digit digits[8];
-    char digitCount = 0;
+   virtual void showDigits();
+   virtual void showDigit(int digitIndex, int row, int col);
 
-    void showDigits();
-
-    public:
-    void add(Digit);
-    void setDecimalSeparator();
-    void clear();
-
-    void setMemory(bool);
-    void setNegative(bool);
-    void setError(bool);
-
+  public:
+  virtual void add(Digit);
+  virtual  void setDecimalSeparator();
+  virtual  void clear();
+  virtual  void setError(bool);
+  virtual  void setMemory(bool);
+  virtual  void setNegative(bool);
 };
+
+//#endif
