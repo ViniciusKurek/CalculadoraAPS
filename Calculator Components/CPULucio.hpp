@@ -1,17 +1,22 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "CalculatorInterfaces.hpp"
 
 class BufferDigits{
   private:
     std::vector<Digit> digits;
-    int  decimalPosition;
-    
+    int decimalPosition;
 
   public:
+    int digitToInt(Digit);
     void addDigit(Digit);
     void setDecimalSeparator();
+
+    // Obtém o valor armazenado dentro do buffer
+    float getValue();
+
 
 };
 
