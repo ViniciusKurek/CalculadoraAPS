@@ -5,11 +5,13 @@
 
 class BufferDigits{
   private:
-  std::vector<Digit> digits;
-  int  decimalPosition;
+    std::vector<Digit> digits;
+    int  decimalPosition;
+    
+
   public:
-  void addDigit(Digit);
-  void setDecimalSeparator();
+    void addDigit(Digit);
+    void setDecimalSeparator();
 
 };
 
@@ -23,7 +25,7 @@ class CpuLucio: public Cpu{
     void setDisplay(Display*);
 	
     void receiveDigit(Digit);
-    void receiveOperator(Operator);
+    void receiveOperator(Operator*);
     void receiveControl(Control);
     void setOperator(Operator);
 

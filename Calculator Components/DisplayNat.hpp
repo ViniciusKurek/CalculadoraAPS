@@ -12,6 +12,8 @@ class DisplayNat: public Display{
     bool memory = false;
     bool negative = false;
 
+    void initShow();
+    virtual void evaluateDigit(Digit, int);
     virtual void show();
     virtual void showControls(int row, int col);
     virtual void showDigit(int digitIndex, int row, int col);

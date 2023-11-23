@@ -18,5 +18,3 @@ protected:
   virtual  void setMemory(bool);
   virtual  void setNegative(bool);
 };
-
-//#endif

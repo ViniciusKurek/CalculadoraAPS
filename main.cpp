@@ -1,11 +1,11 @@
 #include <iostream>
-#include <windows.h>
+//#include <windows.h>
 // #include "Calculator Components\Calculator.hpp"
 // #include "Calculator Components\CPU.hpp"
-#include "Calculator Components\DisplayNat.hpp"
+#include "Calculator Components/DisplayNat.hpp"
 // #include "Calculator Components\Key.hpp"
 // #include "Calculator Components\Keyboard.hpp"
-#include "Calculator Components\Console.hpp"
+#include "Calculator Components/Console.hpp"
 #include <set>
 
 using namespace std; 
@@ -50,7 +50,7 @@ using namespace std;
 
 int main(int argc, char** argv){
     // Console::init(0,0);
-    SetConsoleOutputCP(65001);
+    //SetConsoleOutputCP(65001);
     Display* display1 = new DisplayNat();
     Console::init(10,5);
     // vector<string> sevenSegments(9);
