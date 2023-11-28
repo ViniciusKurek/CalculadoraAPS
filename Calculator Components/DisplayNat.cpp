@@ -37,9 +37,8 @@ void DisplayNat::show(){
 
   this->initShow();
 
-
   for(int i= 0; i < this->digitsCount; i++)
-    this->evaluateDigit(this->digits[i]);
+    this->evaluateDigit(this->digits[i], i);
     
  
   
@@ -86,7 +85,7 @@ void DisplayNat::initShow(){
   Console::clearScreen();
 }
 
-void DisplayNat::evaluateDigit(Digit digit){
+void DisplayNat::evaluateDigit(Digit digit, int i){
   switch(digit){
       case ZERO: this->showDigit(0, 1, i+1); break;
       case ONE: this->showDigit(1, 1, i+1); break;
