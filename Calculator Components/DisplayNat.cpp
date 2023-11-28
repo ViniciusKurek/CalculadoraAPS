@@ -64,6 +64,7 @@ void DisplayNat::showDigit(int digitIndex, int row, int col){
   }
   if(this->decimalSeparatorPosition == col){
    std::cout << "▗";  
+   
   } 
  }
 
