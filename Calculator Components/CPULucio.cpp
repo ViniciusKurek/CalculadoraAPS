@@ -1,6 +1,14 @@
 #include "CPULucio.hpp"
 #include <iostream>
-#include <math.h>
+#include <cmath>
+
+BufferDigits::BufferDigits(){
+  this->decimalPosition = 0;
+}
+
+BufferDigits::BufferDigits(float value){
+  this->setValue(value);
+}
 
 Display *CpuLucio::getDisplay() { return this->display; }
 void CpuLucio::setDisplay(Display *display) { this->display = display; }
@@ -33,9 +41,10 @@ void CpuLucio::receiveControl(Control control) { /* TODO */
 
 }
 
-int BufferDigits::digitToInt(Digit digit){
-  switch (digit)
-  {
+int BufferDigits::digitToInt(Digit digit)
+{
+    switch (digit)
+    {
     case ZERO: return 0;
     case ONE: return 1;
     case TWO: return 2;
@@ -96,7 +105,8 @@ void BufferDigits::clear(){
 
 
 void BufferDigits::setValue(float value){
-  // 15.234
+  this->clear();
+
   int valueInt = value;
   int count = 0;
   
@@ -105,8 +115,6 @@ void BufferDigits::setValue(float value){
     valueInt = valueInt/10;
   }
 
-  this->clear();
-
   std::string temp = std::to_string(value);
   std::string sValue;
 
@@ -114,7 +122,7 @@ void BufferDigits::setValue(float value){
     if(temp[i] != '.') sValue.push_back(temp[i]);
   }
 
-  for(int i = sValue.size() - 1; i >= 0; i--){
+  for(int i = sValue.size() - 1; i >= count; i--){
 		
 		if(sValue[i] != '0')
 			break;
@@ -125,9 +133,43 @@ void BufferDigits::setValue(float value){
   for(int i = 0; i < sValue.size(); i++){
 		char c = sValue[i];
 		int digit = c - '0';
-		this->digits.push_back(this->intToDigit(c));
+		this->addDigit(this->intToDigit(digit));
 	}
 
-  
-
+  this->decimalPosition = count;
 }
+
+void BufferDigits::print(){
+  std::cout << "Digitos: ";
+  for(int i = 0; i < this->digits.size(); i++){
+    std::cout << BufferDigits::digitToInt(this->digits[i]) << " ";
+  }
+  std::cout << std::endl;
+
+  std::cout << "Posicao do ponto: " << this->decimalPosition << std::endl;
+}
+
+BufferDigits BufferDigits::percent(){
+  return BufferDigits(this->getValue() / 100);
+}
+
+BufferDigits BufferDigits::sqrt(){
+  return BufferDigits(std::sqrt(this->getValue()));
+}
+
+BufferDigits BufferDigits::operator+(BufferDigits other){
+ return BufferDigits(this->getValue() + other.getValue());
+}
+
+BufferDigits BufferDigits::operator-(BufferDigits other){
+ return BufferDigits(this->getValue() - other.getValue());
+}
+
+BufferDigits BufferDigits::operator/(BufferDigits other){
+ return BufferDigits(this->getValue() / other.getValue());
+}
+
+BufferDigits BufferDigits::operator*(BufferDigits other){
+  return BufferDigits(this->getValue() * other.getValue());
+}
+

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <math.h>
 #include "CalculatorInterfaces.hpp"
 
 class BufferDigits{
@@ -12,13 +13,22 @@ class BufferDigits{
   public:
     static int digitToInt(Digit);
     static Digit intToDigit(int);
+    
+    BufferDigits();
+    BufferDigits(float value);
     void addDigit(Digit);
     void setDecimalSeparator();
     void clear();
-    // Obtém o valor armazenado dentro do buffer
     float getValue();
-
 	  void setValue(float value);
+    void print();
+
+    BufferDigits sqrt();
+    BufferDigits percent();
+    BufferDigits operator+(BufferDigits other);
+    BufferDigits operator-(BufferDigits other);
+    BufferDigits operator/(BufferDigits other);
+    BufferDigits operator*(BufferDigits other);
 
 };
 
