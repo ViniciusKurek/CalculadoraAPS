@@ -10,14 +10,17 @@ class BufferDigits{
     int decimalPosition;
 
   public:
-    BufferDigits(float value = 0);
     static int digitToInt(Digit);
     static Digit intToDigit(int);
+    
+    BufferDigits();
+    BufferDigits(float value);
     void addDigit(Digit);
     void setDecimalSeparator();
     void clear();
     float getValue();
 	  void setValue(float value);
+    void print();
 
     BufferDigits operator+(BufferDigits other);
     BufferDigits operator-(BufferDigits other);
