@@ -60,7 +60,7 @@ void BufferDigits::setDecimalSeparator(){
 float BufferDigits::getValue(){
   std::string saida;
 
-  for(int i = 0; i < this->digits.size(); i++){
+  for(int i = 0; i < this->digits.size(); i++){ // 24.3 0.5
     if(i == this->decimalPosition) saida += ".";
     saida += std::to_string(this->digitToInt(this->digits[i]));
   }
