@@ -33,9 +33,14 @@ void CpuLucio::receiveControl(Control control) { /* TODO */
 
 }
 
-int BufferDigits::digitToInt(Digit digit){
-  switch (digit)
-  {
+BufferDigits::BufferDigits(float value){
+  this->setValue(value);
+}
+
+int BufferDigits::digitToInt(Digit digit)
+{
+    switch (digit)
+    {
     case ZERO: return 0;
     case ONE: return 1;
     case TWO: return 2;
@@ -127,7 +132,21 @@ void BufferDigits::setValue(float value){
 		int digit = c - '0';
 		this->digits.push_back(this->intToDigit(c));
 	}
+}
 
-  
+// SOBRECARGA DE OPERADORES
+BufferDigits BufferDigits::operator+(BufferDigits other){
+ return BufferDigits(this->getValue() + other.getValue());
+}
 
+BufferDigits BufferDigits::operator-(BufferDigits other){
+ return BufferDigits(this->getValue() - other.getValue());
+}
+
+BufferDigits BufferDigits::operator/(BufferDigits other){
+ return BufferDigits(this->getValue() / other.getValue());
+}
+
+BufferDigits BufferDigits::operator*(BufferDigits other){
+  return BufferDigits(this->getValue() * other.getValue());
 }

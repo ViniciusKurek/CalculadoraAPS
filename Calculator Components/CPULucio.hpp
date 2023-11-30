@@ -10,15 +10,19 @@ class BufferDigits{
     int decimalPosition;
 
   public:
+    BufferDigits(float value = 0);
     static int digitToInt(Digit);
     static Digit intToDigit(int);
     void addDigit(Digit);
     void setDecimalSeparator();
     void clear();
-    // Obtém o valor armazenado dentro do buffer
     float getValue();
-
 	  void setValue(float value);
+
+    BufferDigits operator+(BufferDigits other);
+    BufferDigits operator-(BufferDigits other);
+    BufferDigits operator/(BufferDigits other);
+    BufferDigits operator*(BufferDigits other);
 
 };
 

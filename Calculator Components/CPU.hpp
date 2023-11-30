@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Display.hpp"
+#include "DisplayNat.hpp"
 // #include "Keyboard.hpp"
 
 
