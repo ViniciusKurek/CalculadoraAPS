@@ -18,6 +18,7 @@ std::string symbols[][5] = {
 };
 
 void DisplayNat::add(Digit digit){
+  if(this->digitsCount == this->MAX_DIGITS) return;
   this->digits[this->digitsCount++] = digit;
   this->show();
 }
