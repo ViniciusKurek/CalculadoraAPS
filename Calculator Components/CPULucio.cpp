@@ -1,6 +1,6 @@
 #include "CPULucio.hpp"
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 BufferDigits::BufferDigits(){
   this->decimalPosition = 0;
@@ -105,6 +105,8 @@ void BufferDigits::clear(){
 
 
 void BufferDigits::setValue(float value){
+  this->clear();
+
   int valueInt = value;
   int count = 0;
   
@@ -113,8 +115,6 @@ void BufferDigits::setValue(float value){
     valueInt = valueInt/10;
   }
 
-  this->clear();
-
   std::string temp = std::to_string(value);
   std::string sValue;
 
@@ -122,7 +122,7 @@ void BufferDigits::setValue(float value){
     if(temp[i] != '.') sValue.push_back(temp[i]);
   }
 
-  for(int i = sValue.size() - 1; i >= 0; i--){
+  for(int i = sValue.size() - 1; i >= count; i--){
 		
 		if(sValue[i] != '0')
 			break;
@@ -149,7 +149,14 @@ void BufferDigits::print(){
   std::cout << "Posicao do ponto: " << this->decimalPosition << std::endl;
 }
 
-// SOBRECARGA DE OPERADORES
+BufferDigits BufferDigits::percent(){
+  return BufferDigits(this->getValue() / 100);
+}
+
+BufferDigits BufferDigits::sqrt(){
+  return BufferDigits(std::sqrt(this->getValue()));
+}
+
 BufferDigits BufferDigits::operator+(BufferDigits other){
  return BufferDigits(this->getValue() + other.getValue());
 }

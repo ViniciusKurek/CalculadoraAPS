@@ -1,12 +1,12 @@
 #include "Calculator Components/CPULucio.hpp"
+#include <iostream>
 
 int main(){
-    BufferDigits buffer(12.12);
-    BufferDigits buffer2(2);
+    BufferDigits buffer(400);
 
-    auto teste = buffer * buffer2;
+    auto b = buffer.percent();
 
-    teste.print();
+    b.print();
 
     return 0;
 }

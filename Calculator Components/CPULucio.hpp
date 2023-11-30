@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <math.h>
 #include "CalculatorInterfaces.hpp"
 
 class BufferDigits{
@@ -22,6 +23,8 @@ class BufferDigits{
 	  void setValue(float value);
     void print();
 
+    BufferDigits sqrt();
+    BufferDigits percent();
     BufferDigits operator+(BufferDigits other);
     BufferDigits operator-(BufferDigits other);
     BufferDigits operator/(BufferDigits other);
