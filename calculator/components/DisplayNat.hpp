@@ -14,6 +14,7 @@ class DisplayNat: public Display{
 
     void initShow();
     virtual void evaluateDigit(Digit, int);
+    virtual void show();
     virtual void showControls(int row, int col);
     virtual void showDigit(int digitIndex, int row, int col);
 
@@ -21,7 +22,6 @@ class DisplayNat: public Display{
     void add(Digit);
     void setDecimalSeparator();
     void clear();
-    void show();
     void setError(bool);
     void setMemory(bool);
     void setNegative(bool);
