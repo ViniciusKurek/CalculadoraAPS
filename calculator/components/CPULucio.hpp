@@ -10,6 +10,7 @@ class BufferDigits{
     std::vector<Digit> digits;
     int decimalPosition;
     bool decimalLocked = false;
+    bool isNegative = false;
 
   public:
     static int digitToInt(Digit);
@@ -23,11 +24,14 @@ class BufferDigits{
 
     void addDigit(Digit);
     void setDecimalSeparator();
+    void setNegative(bool);
+    bool getNegative();
     void clear();
     float getValue();
 	  void setValue(float value);
     void print();
     bool isEmpty();
+    void setZero();
 
     BufferDigits sqrt();
     BufferDigits percent();
@@ -44,6 +48,9 @@ class CPULucio: public Cpu{
     Display* display;
     bool on = false;
 
+    bool treatPercentageEntry(Operator*);
+    bool treatRootEntry(Operator*);
+
   protected:
 
     virtual void clear();
@@ -53,7 +60,6 @@ class CPULucio: public Cpu{
     Operator* currentOperator = nullptr;
     BufferDigits op1;
     BufferDigits op2;
-    BufferDigits result;
     BufferDigits mem;
 
   public:

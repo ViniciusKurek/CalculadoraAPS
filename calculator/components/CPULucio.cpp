@@ -22,7 +22,6 @@ int BufferDigits::getDecimalPosition(){
 void CPULucio::clear(){
   this->op1.clear();
   this->op2.clear();
-  this->result.clear();
   this->currentOperator = nullptr;
 }
 
@@ -31,17 +30,19 @@ void CPULucio::clearMemory(){
 }
 
 void CPULucio::showBuffer(BufferDigits buffer){
-  if(this->getDisplay() != nullptr){
-    this->getDisplay()->clear();
-    auto digits = buffer.getDigits();
+  if(this->getDisplay() == nullptr) throw "Display is not connected to CPU!";
 
-    for(int i = 0; i < digits.size(); i++){
-      if(i != 0 && i == buffer.getDecimalPosition())
-        this->getDisplay()->setDecimalSeparator();
+  this->getDisplay()->clear();
 
-      this->getDisplay()->add(digits[i]);
-    }
+  auto digits = buffer.getDigits();
 
+  this->getDisplay()->setNegative(buffer.getNegative());
+
+  for(int i = 0; i < digits.size(); i++){
+    if(i != 0 && i == buffer.getDecimalPosition())
+      this->getDisplay()->setDecimalSeparator();
+
+    this->getDisplay()->add(digits[i]);
   }
 }
 
@@ -62,10 +63,56 @@ void CPULucio::receiveDigit(Digit digit) {
   }
 
 }
+
+bool CPULucio::treatPercentageEntry(Operator* newOperator){
+  if(*newOperator == PERCENTAGE){
+    if(this->op1.isEmpty()) return true;
+    if(this->currentOperator == nullptr){
+      this->op1 = this->op1.percent();
+      this->showBuffer(this->op1);
+    }
+    else{
+      // TEM NO BUFFER 1, TEM OPERADOR
+      if(*this->currentOperator == MULTIPLICATION || *this->currentOperator == DIVISION){
+        if(this->op2.isEmpty()) this->op2 = this->op1.percent();
+        else this->op2 = this->op2.percent();
+      }else{
+        if(this->op2.isEmpty()) this->op2 = this->op1;
+        this->op2 = (this->op1.percent()) * this->op2;
+      }
+
+      this->showBuffer(this->op2);
+    }
+    return true;
+  }
+
+  return false;
+}
+
 void CPULucio::receiveOperator(Operator* newOperator) {
   if(!this->on) return;
-  if(this->op1.isEmpty()) return;
-  this->currentOperator = newOperator;
+
+  // TRATANDO CASO A OPERAÇÃO SEJA PORCENTAGEM
+  if(this->treatPercentageEntry(newOperator)) return;
+
+  // TRATANDO CASO A OPERAÇÃO SEJA RADICIAÇÃO
+  if(this->treatRootEntry(newOperator)) return;
+
+  if(this->op1.isEmpty()){
+    this->op1.setZero();
+    this->currentOperator = newOperator;
+    this->showBuffer(this->op1);
+  }
+  else {
+    if(this->op2.isEmpty()) this->currentOperator = newOperator;
+    else{
+      this->op1 = BufferDigits::calc(this->op1, this->op2, *this->currentOperator);
+      this->currentOperator = newOperator;
+      this->op2.clear();
+      this->showBuffer(this->op1);
+    }
+  }
+
 }
 void CPULucio::receiveControl(Control control) {
   if(control == ON){
@@ -81,13 +128,12 @@ void CPULucio::receiveControl(Control control) {
       this->clear();
       this->clearMemory();
       this->on = false;
+      this->showBuffer(this->op1);
       break;
 
     case DECIMAL_SEPARATOR:
-      if(this->currentOperator == nullptr)
-        this->op1.setDecimalSeparator();
-      else
-        this->op2.setDecimalSeparator();
+      if(this->currentOperator == nullptr) this->op1.setDecimalSeparator();
+      else this->op2.setDecimalSeparator();
       break;
 
     case CLEAR_ERROR: 
@@ -101,16 +147,9 @@ void CPULucio::receiveControl(Control control) {
 
     case EQUAL:
       if(this->currentOperator != nullptr){
-        if(this->op2.isEmpty()) this->op2 = this->op1; // X + ? = ?
-
-        if(this->result.isEmpty()) {
-          this->result = BufferDigits::calc(this->op1, this->op2, *this->currentOperator); // X + X = ?
-        }
-        else{
-          this->result = BufferDigits::calc(this->op2, this->result, *this->currentOperator); // X + X = Y
-        }
-
-        this->showBuffer(this->result);
+        if(this->op2.isEmpty()) this->op2 = this->op1; // X + ?
+        this->op1 = BufferDigits::calc(this->op1, this->op2, *this->currentOperator);
+        this->showBuffer(this->op1);
       }
       break;
 
@@ -165,6 +204,14 @@ void BufferDigits::setDecimalSeparator(){
   this->decimalLocked = true;
 }
 
+void BufferDigits::setNegative(bool isNegative){
+  this->isNegative = isNegative;
+}
+
+bool BufferDigits::getNegative(){
+  return this->isNegative;
+}
+
 float BufferDigits::getValue(){
   float saida = 0;
   
@@ -174,10 +221,13 @@ float BufferDigits::getValue(){
   
   saida = saida / pow(10, this->digits.size() - this->decimalPosition);
 
+  if(this->isNegative) saida = saida * -1;
+
   return saida;
 }
 
 void BufferDigits::clear(){
+  this->isNegative = false;
   this->digits.clear();
   this->decimalPosition = 0;
   this->decimalLocked = false;
@@ -187,7 +237,7 @@ void BufferDigits::clear(){
 void BufferDigits::setValue(float value){
   this->clear();
 
-  int valueInt = value;
+  int valueInt = abs(value);
   int count = 0;
   if(valueInt == 0) count++;
   
@@ -196,7 +246,7 @@ void BufferDigits::setValue(float value){
     valueInt = valueInt/10;
   }
 
-  std::string temp = std::to_string(value);
+  std::string temp = std::to_string(abs(value));
   std::string sValue;
 
   for(int i = 0; i < temp.size(); i++){
@@ -217,9 +267,11 @@ void BufferDigits::setValue(float value){
     if(i == count) this->setDecimalSeparator();
 		this->addDigit(this->intToDigit(digit));
 	}
+  if(value < 0) this->setNegative(true);
 }
 
 void BufferDigits::print(){
+  std::cout << "Negativo: " << this->isNegative << std::endl;
   std::cout << "Digitos: ";
   for(int i = 0; i < this->digits.size(); i++){
     std::cout << BufferDigits::digitToInt(this->digits[i]) << " ";
@@ -232,6 +284,11 @@ void BufferDigits::print(){
 bool BufferDigits::isEmpty(){
   if(this->digits.size() == 0) return true;
   return false;
+}
+
+void BufferDigits::setZero(){
+  this->clear();
+  this->addDigit(ZERO);
 }
 
 BufferDigits BufferDigits::percent(){
@@ -247,6 +304,7 @@ BufferDigits BufferDigits::operator+(BufferDigits other){
 }
 
 BufferDigits BufferDigits::operator-(BufferDigits other){
+  std::cout << "Instanciando buffer com o valor" << this->getValue() - other.getValue() << std::endl;
  return BufferDigits(this->getValue() - other.getValue());
 }
 

@@ -131,6 +131,7 @@ int main(int argc, char** argv){
         }
 
     } while(tecla != 'q');
+
     
     return 0;
 }
