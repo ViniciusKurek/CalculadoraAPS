@@ -56,7 +56,33 @@ int main(int argc, char** argv){
     KeyControlLucio* keyOff = new KeyControlLucio("d", Control::OFF);
     KeyControlLucio* keyOn = new KeyControlLucio("l", Control::ON);
 
-    // LIGANDO AS TECLAS NO TECLADO
+    // LIGANDO TODAS AS TECLAS AO TECLADO
+    key0->setKeyboard(keyboard);
+    key1->setKeyboard(keyboard);
+    key2->setKeyboard(keyboard);
+    key3->setKeyboard(keyboard);
+    key4->setKeyboard(keyboard);
+    key5->setKeyboard(keyboard);
+    key6->setKeyboard(keyboard);
+    key7->setKeyboard(keyboard);
+    key8->setKeyboard(keyboard);
+    key9->setKeyboard(keyboard);
+    keyPlus->setKeyboard(keyboard);
+    keyMinus->setKeyboard(keyboard);
+    keyTimes->setKeyboard(keyboard);
+    keyDivide->setKeyboard(keyboard);
+    keyPercentage->setKeyboard(keyboard);
+    keySquareRoot->setKeyboard(keyboard);
+    keyClear->setKeyboard(keyboard);
+    keyDecimalSeparator->setKeyboard(keyboard);
+    keyEquals->setKeyboard(keyboard);
+    keyMemReadClear->setKeyboard(keyboard);
+    keyMemSub->setKeyboard(keyboard);
+    keyMemSum->setKeyboard(keyboard);
+    keyOff->setKeyboard(keyboard);
+    keyOn->setKeyboard(keyboard);
+
+    // ADICIONANDO AS TECLAS AO TECLADO
     keyboard->addKey(key0);
     keyboard->addKey(key1);
     keyboard->addKey(key2);
@@ -82,7 +108,9 @@ int main(int argc, char** argv){
     keyboard->addKey(keyOff);
     keyboard->addKey(keyOn);
 
-    // CONECTANDO COMPONENTES
+    // CONECTANDO COMPONENTES    
+    cpu->setDisplay(display);
+    keyboard->setCpu(cpu);
     calculator->setCpu(cpu);
     calculator->setDisplay(display);
     calculator->setKeyboard(keyboard);
@@ -94,8 +122,7 @@ int main(int argc, char** argv){
         char symbol[] = {tecla, '\0'};
 
         try{
-            auto key = calculator->getKeyboard()->findKey(symbol);
-            std::cout << "Key encontrada" << std::endl;
+            calculator->getKeyboard()->findKey(symbol)->press();
         }catch(const char* msg){
             cout << msg << endl;
         }
