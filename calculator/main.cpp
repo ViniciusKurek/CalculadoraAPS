@@ -91,8 +91,7 @@ int main(int argc, char** argv){
 
     do{
         tecla = getch();
-
-        char* symbol = &tecla;
+        char symbol[] = {tecla, '\0'};
 
         try{
             auto key = calculator->getKeyboard()->findKey(symbol);
