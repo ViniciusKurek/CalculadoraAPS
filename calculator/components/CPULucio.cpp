@@ -34,6 +34,18 @@ void CpuLucio::receiveControl(Control control) { /* TODO */
     else
       this->op2.setDecimalSeparator();
     break;
+
+  case CLEAR_ERROR: 
+    this->op1.clear();
+    this->op2.clear();
+    this->result.clear();
+    this->currentOperator = nullptr;
+    break;
+
+  case MEMORY_READ_CLEAR:
+    /* TODO */
+    break;
+
   
   default:
     break;
