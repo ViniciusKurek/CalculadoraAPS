@@ -1,19 +1,20 @@
 #pragma once
 #include <iostream>
 #include "CalculatorInterfaces.hpp"
-#include "CPULucio.hpp"
-#include "DisplayNat.hpp"
-#include "KeyboardLucio.hpp"
 
 using namespace std; 
 
 class CalculatorNat : public Calculator{ // Assembler class.
-    DisplayNat display;
-    CPULucio cpu;
-    KeyboardLucio keyboard;
+    Display* display;
+    Cpu* cpu;
+    Keyboard* keyboard;
     
-    public:
-
-
+public:
+    void setDisplay(Display* ) override;
+    Display* getDisplay() override;
+    void setCpu(Cpu* ) override;
+    Cpu* getCpu() override;
+    void setKeyboard(Keyboard* ) override;
+    Keyboard* getKeyboard() override;
 
 };
