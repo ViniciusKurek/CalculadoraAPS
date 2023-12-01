@@ -5,13 +5,16 @@
 class KeyBase: public virtual Key{
   Keyboard* keyboard;
   Symbol symbol;
+
   public:
+
     KeyBase(Symbol);
 
-    Symbol getSymbol();
+    virtual void press() = 0;
+    Symbol getSymbol() override;
+    void setKeyboard(Keyboard*) override;
+    Keyboard* getKeyboard() override;
 
-    void setKeyboard(Keyboard*);
-    Keyboard* getKeyboard();
 };
 
 class KeyDigitLucio: public KeyBase, public KeyDigit{

@@ -10,41 +10,92 @@ BufferDigits::BufferDigits(float value){
   this->setValue(value);
 }
 
-Display *CpuLucio::getDisplay() { return this->display; }
-void CpuLucio::setDisplay(Display *display) { this->display = display; }
+std::vector<Digit> BufferDigits::getDigits(){
+  return this->digits;
+}
 
-void CpuLucio::receiveDigit(Digit digit) {
+int BufferDigits::getDecimalPosition(){
+  return this->decimalPosition;
+}
+
+void CPULucio::clear(){
+  this->op1.clear();
+  this->op2.clear();
+  this->result.clear();
+  this->currentOperator = nullptr;
+}
+
+void CPULucio::clearMemory(){
+  this->mem.clear();
+}
+
+void CPULucio::showBuffer(BufferDigits buffer){
+  if(this->getDisplay() != nullptr){
+    this->getDisplay()->clear();
+    auto digits = buffer.getDigits();
+
+    for(int i = 0; i < digits.size(); i++){
+      if(i != 0 && i == buffer.getDecimalPosition())
+        this->getDisplay()->setDecimalSeparator();
+
+      this->getDisplay()->add(digits[i]);
+    }
+
+  }
+}
+
+Display *CPULucio::getDisplay() { return this->display; }
+void CPULucio::setDisplay(Display *display) { this->display = display; }
+
+void CPULucio::receiveDigit(Digit digit) {
+  if(!this->on) return;
+
   if(this->display!=nullptr);
-    /* TODO */
-    if(this->currentOperator == nullptr)
+    if(this->currentOperator == nullptr){
       this->op1.addDigit(digit);
-    else
+      this->showBuffer(this->op1);
+    }
+    else{
       this->op2.addDigit(digit);
+      this->showBuffer(this->op2);
+    }
 
 }
-void CpuLucio::receiveOperator(Operator* newOperator) { /* TODO */
+void CPULucio::receiveOperator(Operator* newOperator) {
+  if(!this->on) return;
+
   this->currentOperator = newOperator;
 }
-void CpuLucio::receiveControl(Control control) { /* TODO */
-  switch (control)
-  {
-  case DECIMAL_SEPARATOR:
-    if(this->currentOperator == nullptr)
-      this->op1.setDecimalSeparator();
-    else
-      this->op2.setDecimalSeparator();
-    break;
+void CPULucio::receiveControl(Control control) {
+  if(!this->on) return;
 
-  case CLEAR_ERROR: 
-    this->op1.clear();
-    this->op2.clear();
-    this->result.clear();
-    this->currentOperator = nullptr;
-    break;
+  switch (control){
+    case ON:
+      this->on = true;
+      break;
 
-  case MEMORY_READ_CLEAR:
-    /* TODO */
-    break;
+    case OFF:
+      this->clear();
+      this->clearMemory();
+      this->on = false;
+      break;
+
+    case DECIMAL_SEPARATOR:
+      if(this->currentOperator == nullptr)
+        this->op1.setDecimalSeparator();
+      else
+        this->op2.setDecimalSeparator();
+      break;
+
+    case CLEAR_ERROR: 
+      this->clear();
+      break;
+
+    case MEMORY_READ_CLEAR:
+      this->clearMemory();
+      break;
+
+  
 
   
   default:
@@ -87,8 +138,6 @@ Digit BufferDigits::intToDigit(int integer){
     default: return INVALID;
   }
 }
-
-
 
 void BufferDigits::addDigit(Digit digit){
   this->digits.push_back(digit);

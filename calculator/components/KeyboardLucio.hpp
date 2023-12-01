@@ -3,10 +3,10 @@
 #include "CalculatorInterfaces.hpp"
 
 class KeyboardLucio: public Keyboard{
-    static const char MAX_KEYS = 101;
+    static const int MAX_KEYS = 101;
 
     Key* keys[MAX_KEYS];
-    char keysCount = 0;
+    int keysCount = 0;
     Cpu* cpu;
     
   public:

@@ -16,6 +16,10 @@ class BufferDigits{
     
     BufferDigits();
     BufferDigits(float value);
+
+    std::vector<Digit> getDigits();
+    int getDecimalPosition();
+
     void addDigit(Digit);
     void setDecimalSeparator();
     void clear();
@@ -32,25 +36,31 @@ class BufferDigits{
 
 };
 
-class CpuLucio: public Cpu{
+class CPULucio: public Cpu{
   private:
     Display* display;
-    
+    bool on = false;
+
+  protected:
+
+    virtual void clear();
+    virtual void clearMemory();
+    virtual void showBuffer(BufferDigits);
+
+    Operator* currentOperator = nullptr;
+    BufferDigits op1;
+    BufferDigits op2;
+    BufferDigits result;
+    BufferDigits mem;
 
   public:
-    Display* getDisplay();
-    void setDisplay(Display*);
-    void receiveDigit(Digit);
-    void receiveOperator(Operator*);
-    void receiveControl(Control);
-    void setOperator(Operator);
+    Display* getDisplay() override;
+    void setDisplay(Display*) override;
+    
+    void receiveDigit(Digit) override;
+    void receiveOperator(Operator*) override;
+    void receiveControl(Control) override;
 
-    protected:
-     Operator * currentOperator = nullptr;
-	   BufferDigits op1;
-     BufferDigits op2;
-     BufferDigits result;
-     BufferDigits mem;
-     
+    void setOperator(Operator);
 
 };

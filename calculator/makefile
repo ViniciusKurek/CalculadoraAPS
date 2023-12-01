@@ -1,5 +1,8 @@
+LIB=components/*.cpp
+V=-std=c++11
+
 all:
-	g++ main.cpp "components/*.cpp" -o main
+	g++ main.cpp $(LIB) $(V) -g
 
 test:
 	g++ teste.cpp "Calculator Components/CPULucio.cpp" && clear && ./a.exe

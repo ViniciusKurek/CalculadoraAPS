@@ -1,6 +1,6 @@
 #include "KeyboardLucio.hpp"
 #include "cstring"
-
+#include <iostream>
 
 void KeyboardLucio::addKey(Key *key) {
 	for(int i = 0; i < this->keysCount; i++){
@@ -10,8 +10,7 @@ void KeyboardLucio::addKey(Key *key) {
   key->setKeyboard(this); /* Connect this keyboard with new key */
 }
 
-void KeyboardLucio::removeKey(Key *key) { 
-	/* TODO */
+void KeyboardLucio::removeKey(Key *key) {
 	for(int i=0; i < this->keysCount; i++){
 		if(this->keys[i] == key){
 			this->keys[i] = nullptr;
@@ -22,8 +21,8 @@ void KeyboardLucio::removeKey(Key *key) {
 }
 
 Key *KeyboardLucio::findKey(Symbol symbol) {
-  for (char i = 0; i < this->keysCount; i++)
-    if (strcmp(symbol,this->keys[i]->getSymbol()))
+  for (int i = 0; i < this->keysCount; i++)
+    if (strcmp(symbol,this->keys[i]->getSymbol()) == 0)
       return this->keys[i];
 
   throw "Key not found!";
