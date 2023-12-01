@@ -116,6 +116,9 @@ int main(int argc, char** argv){
     calculator->setKeyboard(keyboard);
 
     char tecla;
+    
+    std::cout << "Pressione 'q' para sair do programa" << std::endl;
+    std::cout << "Pressione '" << keyOn->getSymbol() << "'" << " para ligar a calculadora" << std::endl;
 
     do{
         tecla = getch();

@@ -63,16 +63,18 @@ void CPULucio::receiveDigit(Digit digit) {
 }
 void CPULucio::receiveOperator(Operator* newOperator) {
   if(!this->on) return;
-
+  if(this->op1.isEmpty()) return;
   this->currentOperator = newOperator;
 }
 void CPULucio::receiveControl(Control control) {
+  if(control == ON){
+    this->on = true;
+    this->showBuffer(this->op1);
+  }
+  
   if(!this->on) return;
 
   switch (control){
-    case ON:
-      this->on = true;
-      break;
 
     case OFF:
       this->clear();
@@ -89,13 +91,25 @@ void CPULucio::receiveControl(Control control) {
 
     case CLEAR_ERROR: 
       this->clear();
+      this->showBuffer(this->op1);
       break;
 
     case MEMORY_READ_CLEAR:
       this->clearMemory();
       break;
 
-  
+    case EQUAL:
+      if(this->currentOperator != nullptr){
+        if(this->op2.isEmpty()) this->op2 = this->op1; // X + ? = ?
+
+        if(this->result.isEmpty()) 
+          this->result = BufferDigits::calc(this->op1, this->op2, *this->currentOperator); // X + X = ?
+        else
+          this->result = BufferDigits::calc(this->op2, this->result, *this->currentOperator); // X + X = Y
+
+        this->showBuffer(this->result);
+      }
+      break;
 
   
   default:
@@ -151,10 +165,11 @@ float BufferDigits::getValue(){
   float saida = 0;
   
   for(int i = 0; i < this->digits.size(); i++){
-      saida += this->digits[i] * pow(10, (this->digits.size() -1 ) - i); // 15.435
+      saida += this->digits[i] * pow(10, (this->digits.size() -1 ) - i); 
   }
   
-  saida = saida / pow(10, (this->digits.size()) - this->decimalPosition);
+  if(this->decimalPosition != 0)
+    saida = saida / pow(10, this->digits.size() - this->decimalPosition);
 
   return saida;
 }
@@ -210,6 +225,11 @@ void BufferDigits::print(){
   std::cout << "Posicao do ponto: " << this->decimalPosition << std::endl;
 }
 
+bool BufferDigits::isEmpty(){
+  if(this->digits.size() == 0) return true;
+  return false;
+}
+
 BufferDigits BufferDigits::percent(){
   return BufferDigits(this->getValue() / 100);
 }
@@ -234,3 +254,13 @@ BufferDigits BufferDigits::operator*(BufferDigits other){
   return BufferDigits(this->getValue() * other.getValue());
 }
 
+BufferDigits BufferDigits::calc(BufferDigits one, BufferDigits two, Operator op){
+  switch(op)
+  {
+    case SUM: return one + two;
+    case SUBTRACTION: return one - two;
+    case MULTIPLICATION: return one * two;
+    case DIVISION: return one / two;
+  }
+  return BufferDigits();
+}

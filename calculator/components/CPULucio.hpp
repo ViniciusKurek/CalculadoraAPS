@@ -26,6 +26,7 @@ class BufferDigits{
     float getValue();
 	  void setValue(float value);
     void print();
+    bool isEmpty();
 
     BufferDigits sqrt();
     BufferDigits percent();
@@ -33,6 +34,7 @@ class BufferDigits{
     BufferDigits operator-(BufferDigits other);
     BufferDigits operator/(BufferDigits other);
     BufferDigits operator*(BufferDigits other);
+    static BufferDigits calc(BufferDigits one, BufferDigits two, Operator op);
 
 };
 
