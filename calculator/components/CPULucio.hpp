@@ -47,7 +47,7 @@ class CPULucio: public Cpu{
     virtual void clearMemory();
     virtual void showBuffer(BufferDigits);
 
-    Operator * currentOperator = nullptr;
+    Operator* currentOperator = nullptr;
     BufferDigits op1;
     BufferDigits op2;
     BufferDigits result;
@@ -58,7 +58,7 @@ class CPULucio: public Cpu{
     void setDisplay(Display*) override;
     
     void receiveDigit(Digit) override;
-    void receiveOperator(Operator) override;
+    void receiveOperator(Operator*) override;
     void receiveControl(Control) override;
 
     void setOperator(Operator);

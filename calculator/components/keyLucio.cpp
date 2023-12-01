@@ -24,7 +24,7 @@ KeyOperatorLucio::KeyOperatorLucio(Symbol symbol, Operator operator_) : KeyBase(
 Operator KeyOperatorLucio::getOperator() { return this->operator_; }
 
 void KeyOperatorLucio::press(){
-  this->getKeyboard()->getCpu()->receiveOperator(this->operator_);
+  this->getKeyboard()->getCpu()->receiveOperator(&this->operator_);
 }
 
 KeyControlLucio::KeyControlLucio(Symbol symbol, Control control) : KeyBase(symbol) {

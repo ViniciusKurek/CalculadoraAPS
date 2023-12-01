@@ -10,6 +10,14 @@ BufferDigits::BufferDigits(float value){
   this->setValue(value);
 }
 
+std::vector<Digit> BufferDigits::getDigits(){
+  return this->digits;
+}
+
+int BufferDigits::getDecimalPosition(){
+  return this->decimalPosition;
+}
+
 void CPULucio::clear(){
   this->op1.clear();
   this->op2.clear();
@@ -53,12 +61,12 @@ void CPULucio::receiveDigit(Digit digit) {
     }
 
 }
-void CPULucio::receiveOperator(Operator* newOperator) { /* TODO */
+void CPULucio::receiveOperator(Operator* newOperator) {
   if(!this->on) return;
 
   this->currentOperator = newOperator;
 }
-void CPULucio::receiveControl(Control control) { /* TODO */
+void CPULucio::receiveControl(Control control) {
   if(!this->on) return;
 
   switch (control){

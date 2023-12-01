@@ -26,7 +26,7 @@ class Cpu{
     virtual void setDisplay(Display*) = 0;
 
     virtual void receiveDigit(Digit) = 0;
-    virtual void receiveOperator(Operator) = 0;
+    virtual void receiveOperator(Operator*) = 0;
     virtual void receiveControl(Control) = 0;
 };
 

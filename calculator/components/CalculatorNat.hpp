@@ -10,6 +10,7 @@ class CalculatorNat : public Calculator{ // Assembler class.
     Keyboard* keyboard;
     
 public:
+    CalculatorNat() = default;
     void setDisplay(Display* ) override;
     Display* getDisplay() override;
     void setCpu(Cpu* ) override;
