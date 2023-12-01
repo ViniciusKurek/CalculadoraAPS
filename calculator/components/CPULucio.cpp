@@ -20,8 +20,12 @@ int BufferDigits::getDecimalPosition(){
 }
 
 void CPULucio::clear(){
+  if(this->getDisplay() == nullptr) throw "Display is not connected to CPU!";
+
   this->op1.clear();
   this->op2.clear();
+  this->getDisplay()->setError(false);
+  this->getDisplay()->setNegative(false);
   this->currentOperator = nullptr;
 }
 
@@ -44,6 +48,11 @@ void CPULucio::showBuffer(BufferDigits buffer){
 
     this->getDisplay()->add(digits[i]);
   }
+}
+
+void CPULucio::setError(bool error){
+  if(this->getDisplay() == nullptr) throw "Display is not connected to CPU!";
+  this->getDisplay()->setError(error);
 }
 
 Display *CPULucio::getDisplay() { return this->display; }
@@ -92,20 +101,44 @@ bool CPULucio::treatPercentageEntry(Operator* newOperator){
 bool CPULucio::treatSquareRootEntry(Operator* newOperator){
   if(*newOperator == SQUARE_ROOT){
 
-    if(!this->op2.isEmpty()){
-      this->op2 = this->op2.sqrt();
-      this->showBuffer(this->op2);
-      return true;
-    }
-
+    // TEM NO BUFFER 1, NÃO TEM OPERADOR, NÃO TEM NO BUFFER 2
     if(!this->op1.isEmpty() && this->currentOperator == nullptr){
+      
+      if(this->op1.getValue() < 0){
+        this->setError(true);
+        this->showBuffer(this->op1);
+        return true;
+      }
+
       this->op1 = this->op1.sqrt();
       this->showBuffer(this->op1);
       return true;
     }
 
+    // TEM NO BUFFER 1, TEM OPERADOR, NÃO TEM NO BUFFER 2
     if(this->op2.isEmpty() && this->currentOperator != nullptr){
+
+      if(this->op1.getValue() < 0){
+        this->setError(true);
+        this->showBuffer(this->op1);
+        return true;
+      }
+
       this->op2 = this->op1.sqrt();
+      this->showBuffer(this->op2);
+      return true;
+    }
+
+    // TEM NO BUFFER 1, TEM OPERADOR, TEM NO BUFFER 2
+    if(!this->op2.isEmpty()){
+
+      if(this->op1.getValue() < 0){
+        this->setError(true);
+        this->showBuffer(this->op1);
+        return true;
+      }
+
+      this->op2 = this->op2.sqrt();
       this->showBuffer(this->op2);
       return true;
     }
