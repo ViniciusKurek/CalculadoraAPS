@@ -4,6 +4,7 @@
 
 BufferDigits::BufferDigits(){
   this->decimalPosition = 0;
+  this->decimalLocked = false;
 }
 
 BufferDigits::BufferDigits(float value){
@@ -49,16 +50,16 @@ void CPULucio::setDisplay(Display *display) { this->display = display; }
 
 void CPULucio::receiveDigit(Digit digit) {
   if(!this->on) return;
+  if(this->display == nullptr) throw "Display is not connected to CPU!";
 
-  if(this->display!=nullptr);
-    if(this->currentOperator == nullptr){
-      this->op1.addDigit(digit);
-      this->showBuffer(this->op1);
-    }
-    else{
-      this->op2.addDigit(digit);
-      this->showBuffer(this->op2);
-    }
+  if(this->currentOperator == nullptr){
+    this->op1.addDigit(digit);
+    this->showBuffer(this->op1);
+  }
+  else{
+    this->op2.addDigit(digit);
+    this->showBuffer(this->op2);
+  }
 
 }
 void CPULucio::receiveOperator(Operator* newOperator) {
@@ -102,10 +103,12 @@ void CPULucio::receiveControl(Control control) {
       if(this->currentOperator != nullptr){
         if(this->op2.isEmpty()) this->op2 = this->op1; // X + ? = ?
 
-        if(this->result.isEmpty()) 
+        if(this->result.isEmpty()) {
           this->result = BufferDigits::calc(this->op1, this->op2, *this->currentOperator); // X + X = ?
-        else
+        }
+        else{
           this->result = BufferDigits::calc(this->op2, this->result, *this->currentOperator); // X + X = Y
+        }
 
         this->showBuffer(this->result);
       }
@@ -154,11 +157,12 @@ Digit BufferDigits::intToDigit(int integer){
 }
 
 void BufferDigits::addDigit(Digit digit){
-  this->digits.push_back(digit);
+  if(this->digits.size() < Display::MAX_DIGITS) this->digits.push_back(digit);
+  if(!this->decimalLocked) this->decimalPosition++;
 }
 
 void BufferDigits::setDecimalSeparator(){
-  this->decimalPosition = this->digits.size();
+  this->decimalLocked = true;
 }
 
 float BufferDigits::getValue(){
@@ -168,8 +172,7 @@ float BufferDigits::getValue(){
       saida += this->digits[i] * pow(10, (this->digits.size() -1 ) - i); 
   }
   
-  if(this->decimalPosition != 0)
-    saida = saida / pow(10, this->digits.size() - this->decimalPosition);
+  saida = saida / pow(10, this->digits.size() - this->decimalPosition);
 
   return saida;
 }
@@ -177,6 +180,7 @@ float BufferDigits::getValue(){
 void BufferDigits::clear(){
   this->digits.clear();
   this->decimalPosition = 0;
+  this->decimalLocked = false;
 }
 
 
@@ -185,6 +189,7 @@ void BufferDigits::setValue(float value){
 
   int valueInt = value;
   int count = 0;
+  if(valueInt == 0) count++;
   
   while(valueInt > 0){
     count++;
@@ -209,10 +214,9 @@ void BufferDigits::setValue(float value){
   for(int i = 0; i < sValue.size(); i++){
 		char c = sValue[i];
 		int digit = c - '0';
+    if(i == count) this->setDecimalSeparator();
 		this->addDigit(this->intToDigit(digit));
 	}
-
-  this->decimalPosition = count;
 }
 
 void BufferDigits::print(){

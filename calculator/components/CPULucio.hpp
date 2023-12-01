@@ -9,6 +9,7 @@ class BufferDigits{
   private:
     std::vector<Digit> digits;
     int decimalPosition;
+    bool decimalLocked = false;
 
   public:
     static int digitToInt(Digit);
