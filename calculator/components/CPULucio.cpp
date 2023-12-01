@@ -89,6 +89,32 @@ bool CPULucio::treatPercentageEntry(Operator* newOperator){
   return false;
 }
 
+bool CPULucio::treatSquareRootEntry(Operator* newOperator){
+  if(*newOperator == SQUARE_ROOT){
+
+    if(!this->op2.isEmpty()){
+      this->op2 = this->op2.sqrt();
+      this->showBuffer(this->op2);
+      return true;
+    }
+
+    if(!this->op1.isEmpty() && this->currentOperator == nullptr){
+      this->op1 = this->op1.sqrt();
+      this->showBuffer(this->op1);
+      return true;
+    }
+
+    if(this->op2.isEmpty() && this->currentOperator != nullptr){
+      this->op2 = this->op1.sqrt();
+      this->showBuffer(this->op2);
+      return true;
+    }
+
+    return true;
+  }
+  return false;
+}
+
 void CPULucio::receiveOperator(Operator* newOperator) {
   if(!this->on) return;
 
@@ -96,8 +122,8 @@ void CPULucio::receiveOperator(Operator* newOperator) {
   if(this->treatPercentageEntry(newOperator)) return;
 
   // TRATANDO CASO A OPERAÇÃO SEJA RADICIAÇÃO
-  if(this->treatRootEntry(newOperator)) return;
-
+  if(this->treatSquareRootEntry(newOperator)) return;
+  
   if(this->op1.isEmpty()){
     this->op1.setZero();
     this->currentOperator = newOperator;

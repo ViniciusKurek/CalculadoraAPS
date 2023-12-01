@@ -49,7 +49,7 @@ class CPULucio: public Cpu{
     bool on = false;
 
     bool treatPercentageEntry(Operator*);
-    bool treatRootEntry(Operator*);
+    bool treatSquareRootEntry(Operator*);
 
   protected:
 
