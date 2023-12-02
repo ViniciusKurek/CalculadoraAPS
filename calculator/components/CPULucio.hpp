@@ -46,7 +46,7 @@ class BufferDigits{
 
 class CPULucio: public Cpu{
   private:
-    Display* display;
+    Display* display; 
     bool on = false;
     bool memoryRead = false;
     bool treatPercentageEntry(Operator*);
@@ -58,6 +58,8 @@ class CPULucio: public Cpu{
     virtual void memoryReadClear(BufferDigits);
     virtual void showBuffer(BufferDigits);
     void setError(bool);
+    BufferDigits& getCurrentBuffer();
+
 
     Operator* currentOperator = nullptr;
     BufferDigits op1;

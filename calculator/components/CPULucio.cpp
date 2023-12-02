@@ -38,15 +38,26 @@ bool CPULucio::getMRC(){
 }
 
 void CPULucio::memoryReadClear(BufferDigits buffer){
-  if(!this->getMRC()){
+  if(this->getMRC() == false){
     buffer = this->mem;
-    this->showBuffer(buffer);
     this->setMRC(true);
+    this->showBuffer(buffer);
+    return;
   }
   else 
+    buffer.clear();
     this->mem.clear();
     this->setMRC(false);
+    this->getDisplay()->setMemory(false);
+    return;
+
 }
+
+BufferDigits& CPULucio::getCurrentBuffer(){
+  if(this->currentOperator != nullptr) return this->op2;
+  return this->op1;
+}
+
 
 void CPULucio::showBuffer(BufferDigits buffer){
   if(this->getDisplay() == nullptr) throw "Display is not connected to CPU!";
@@ -55,7 +66,10 @@ void CPULucio::showBuffer(BufferDigits buffer){
 
   auto digits = buffer.getDigits();
 
+
+  this->getDisplay()->setMemory(!this->mem.isEmpty());
   this->getDisplay()->setNegative(buffer.getNegative());
+  // this->getDisplay()->setMemory(this->mem.isEmpty() == false);
 
   for(int i = 0; i < digits.size(); i++){
     if(i != 0 && i == buffer.getDecimalPosition())
@@ -76,6 +90,10 @@ void CPULucio::setDisplay(Display *display) { this->display = display; }
 void CPULucio::receiveDigit(Digit digit) {
   if(!this->on) return;
   if(this->display == nullptr) throw "Display is not connected to CPU!";
+
+
+  if(this->getMRC()) this->getCurrentBuffer().clear();
+  this->setMRC(false);
 
   if(this->currentOperator == nullptr){
     if(this->op1.isEmpty()){
@@ -184,6 +202,8 @@ bool CPULucio::treatSquareRootEntry(Operator* newOperator){
 void CPULucio::receiveOperator(Operator* newOperator) {
   if(!this->on) return;
 
+  this->setMRC(false);
+
   // TRATANDO CASO A OPERAÇÃO SEJA PORCENTAGEM
   if(this->treatPercentageEntry(newOperator)) return;
 
@@ -214,11 +234,15 @@ void CPULucio::receiveControl(Control control) {
   
   if(!this->on) return;
 
+  if((control != MEMORY_READ_CLEAR) && (control != CLEAR_ERROR)) this->setMRC(false);
+
+
   switch (control){
 
     case OFF:
       this->clear();
-      this->memoryReadClear(this->mem);
+      // if(this->getMRC())
+      //   this->memoryReadClear(this->mem);
       this->on = false;
       this->showBuffer(this->op1);
       break;
@@ -238,7 +262,7 @@ void CPULucio::receiveControl(Control control) {
       else{
         if(this->op1.isEmpty()) this->op1.addDigit(ZERO);
         this->op2.setDecimalSeparator();
-        this->showBuffer(this->op1);
+        this->showBuffer(this->op2);
 
       }
 
@@ -251,7 +275,8 @@ void CPULucio::receiveControl(Control control) {
       break;
 
     case MEMORY_READ_CLEAR:
-      this->memoryReadClear(this->mem);
+      this->memoryReadClear(this->getCurrentBuffer());
+      this->getCurrentBuffer().clear();
       break;
 
     case EQUAL:
@@ -262,7 +287,40 @@ void CPULucio::receiveControl(Control control) {
       }
       break;
 
-  
+    case MEMORY_SUM:
+      if(this->currentOperator != nullptr){
+        this->mem = BufferDigits::calc(this->mem, this->op1.calc(this->op1, this->op2, *this->currentOperator), SUM);
+        this->op1 = this->mem;
+        this->op2.clear();
+        this->currentOperator = nullptr;
+        this->getDisplay()->setMemory(true);
+        this->showBuffer(this->op1);
+
+      }
+      else{
+        this->mem = BufferDigits::calc(this->mem, this->getCurrentBuffer(), SUM);
+        this->op1 = mem;
+        this->getDisplay()->setMemory(true);
+      }
+
+    break;
+
+    case MEMORY_SUBTRACTION:
+      if(this->currentOperator != nullptr){
+        this->mem = BufferDigits::calc(this->mem, this->op1.calc(this->op1, this->op2, *this->currentOperator), SUBTRACTION);
+        this->op1 = this->mem;
+        this->op2.clear();
+        this->currentOperator = nullptr;
+        this->getDisplay()->setMemory(true);
+        this->showBuffer(this->op1);
+      }
+      else{
+        this->mem = BufferDigits::calc(this->mem, this->getCurrentBuffer(), SUBTRACTION);
+        this->getDisplay()->setMemory(true);
+      }
+
+    break;
+
   default:
     break;
   }
@@ -439,3 +497,4 @@ BufferDigits BufferDigits::calc(BufferDigits one, BufferDigits two, Operator op)
   }
   return BufferDigits();
 }
+
