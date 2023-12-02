@@ -29,8 +29,23 @@ void CPULucio::clear(){
   this->currentOperator = nullptr;
 }
 
-void CPULucio::clearMemory(){
-  this->mem.clear();
+void CPULucio::setMRC(bool condition){
+  this->memoryRead = condition;
+}
+
+bool CPULucio::getMRC(){
+  return this->memoryRead;
+}
+
+void CPULucio::memoryReadClear(BufferDigits buffer){
+  if(!this->getMRC()){
+    buffer = this->mem;
+    this->showBuffer(buffer);
+    this->setMRC(true);
+  }
+  else 
+    this->mem.clear();
+    this->setMRC(false);
 }
 
 void CPULucio::showBuffer(BufferDigits buffer){
@@ -63,12 +78,30 @@ void CPULucio::receiveDigit(Digit digit) {
   if(this->display == nullptr) throw "Display is not connected to CPU!";
 
   if(this->currentOperator == nullptr){
-    this->op1.addDigit(digit);
+    if(this->op1.isEmpty()){
+      if(this->op1.getDecimalSeparator())
+        this->op1.addDigit(digit);
+      else if(digit != ZERO)
+        this->op1.addDigit(digit);
+    }else{
+      this->op1.addDigit(digit);
+    }
+
     this->showBuffer(this->op1);
+    
   }
   else{
-    this->op2.addDigit(digit);
+    if(this->op2.isEmpty()){
+      if(this->op2.getDecimalSeparator())
+        this->op2.addDigit(digit);
+        else if(digit != ZERO)
+          this->op2.addDigit(digit);
+    }else{
+        this->op2.addDigit(digit);
+      }
+        
     this->showBuffer(this->op2);
+
   }
 
 }
@@ -185,14 +218,31 @@ void CPULucio::receiveControl(Control control) {
 
     case OFF:
       this->clear();
-      this->clearMemory();
+      this->memoryReadClear(this->mem);
       this->on = false;
       this->showBuffer(this->op1);
       break;
 
     case DECIMAL_SEPARATOR:
-      if(this->currentOperator == nullptr) this->op1.setDecimalSeparator();
-      else this->op2.setDecimalSeparator();
+      if((!this->op1.isEmpty()) && (!this->op2.isEmpty())){
+        this->op1.clear();
+        this->showBuffer(this->op1);
+      }
+      
+      if(this->currentOperator == nullptr){
+        if(this->op1.isEmpty()) this->op1.addDigit(ZERO);
+        this->op1.setDecimalSeparator();
+        this->showBuffer(this->op1);
+
+        }
+      else{
+        if(this->op1.isEmpty()) this->op1.addDigit(ZERO);
+        this->op2.setDecimalSeparator();
+        this->showBuffer(this->op1);
+
+      }
+
+
       break;
 
     case CLEAR_ERROR: 
@@ -201,7 +251,7 @@ void CPULucio::receiveControl(Control control) {
       break;
 
     case MEMORY_READ_CLEAR:
-      this->clearMemory();
+      this->memoryReadClear(this->mem);
       break;
 
     case EQUAL:
@@ -261,6 +311,10 @@ void BufferDigits::addDigit(Digit digit){
 
 void BufferDigits::setDecimalSeparator(){
   this->decimalLocked = true;
+}
+
+bool BufferDigits::getDecimalSeparator(){
+  return this->decimalLocked;
 }
 
 void BufferDigits::setNegative(bool isNegative){
