@@ -48,7 +48,7 @@ int main(int argc, char** argv){
 
     // TECLAS DE CONTROLE
     KeyControlLucio* keyClear = new KeyControlLucio("c", Control::CLEAR_ERROR);
-    KeyControlLucio* keyDecimalSeparator = new KeyControlLucio(",", Control::DECIMAL_SEPARATOR);
+    KeyControlLucio* keyDecimalSeparator = new KeyControlLucio(".", Control::DECIMAL_SEPARATOR);
     KeyControlLucio* keyEquals = new KeyControlLucio("=", Control::EQUAL);
     KeyControlLucio* keyMemReadClear = new KeyControlLucio("x", Control::MEMORY_READ_CLEAR);
     KeyControlLucio* keyMemSub = new KeyControlLucio("[", Control::MEMORY_SUBTRACTION);
