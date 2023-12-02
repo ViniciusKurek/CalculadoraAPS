@@ -24,6 +24,7 @@ class BufferDigits{
 
     void addDigit(Digit);
     void setDecimalSeparator();
+    bool getDecimalSeparator();
     void setNegative(bool);
     bool getNegative();
     void clear();
@@ -47,14 +48,14 @@ class CPULucio: public Cpu{
   private:
     Display* display;
     bool on = false;
-
+    bool memoryRead = false;
     bool treatPercentageEntry(Operator*);
     bool treatSquareRootEntry(Operator*);
 
   protected:
 
     virtual void clear();
-    virtual void clearMemory();
+    virtual void memoryReadClear(BufferDigits);
     virtual void showBuffer(BufferDigits);
     void setError(bool);
 
@@ -66,7 +67,8 @@ class CPULucio: public Cpu{
   public:
     Display* getDisplay() override;
     void setDisplay(Display*) override;
-    
+    void setMRC(bool);
+    bool getMRC();
     void receiveDigit(Digit) override;
     void receiveOperator(Operator*) override;
     void receiveControl(Control) override;
