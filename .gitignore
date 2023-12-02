@@ -5,3 +5,4 @@ test.txt
 .vscode
 DisplayMeu.hpp
 DisplayMeu.txt
+*.tmp
