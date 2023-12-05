@@ -1,0 +1,110 @@
+<mxfile host="app.diagrams.net" modified="2023-12-05T11:08:51.290Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="6fdMm_zAhtxMOHAqBwrN" version="22.1.5" type="device">
+  <diagram name="Página-1" id="cPSNi7r_4B1eX6Dvwcpm">
+    <mxGraphModel dx="1473" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-51">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-51" target="J08tAfY-yrUdoFLxVI3k-53">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-51" target="J08tAfY-yrUdoFLxVI3k-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-51" value=":PropriedadeManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="1010" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-52" value="getProperties(ownerId)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="340" y="920" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-53" value=":DaoManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="1010" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-54" value="1. getPropriedadeDAO()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="550" y="1010" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-56" target="J08tAfY-yrUdoFLxVI3k-60">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-56" value=":PropriedadeDAO" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="1220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-57" value="2. props := getProperties()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="1120" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-60" target="J08tAfY-yrUdoFLxVI3k-53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-60" target="J08tAfY-yrUdoFLxVI3k-64">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-60" value=":ProjetoManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="1220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-61" value="3. getProjects(propertyId, PENDENTE)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="490" y="1220" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-62" value="4. getProjetoDAO()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1130" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-64" target="J08tAfY-yrUdoFLxVI3k-68">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-64" value=":ProjetoDAO" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="1400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-65" value="5. projs := getProjects(propertyId)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="590" y="1320" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-68" target="J08tAfY-yrUdoFLxVI3k-53">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1182.5" y="1030" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-68" target="J08tAfY-yrUdoFLxVI3k-72">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1215" y="1550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-68" value=":EtapaProjetoManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1175" y="1400" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-69" value="6. getProjectStages(projectId, APROVADO)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="860" y="1400" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-70" value="6.1. getEtapaProjetoDAO()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="1210" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="J08tAfY-yrUdoFLxVI3k-72" target="J08tAfY-yrUdoFLxVI3k-78">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1483" y="1590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-72" value=":EtapaProjetoDAO" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1175" y="1580" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-73" value="6.2. projstgsAp := getProjectStages(projectId)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="985" y="1510" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-78" value=":FormularioManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="1510" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-79" value="7. getForm(projectStageId)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1345" y="1610" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-100" value="6.3. getProjectStages(projectId, REPROVADO)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="865" y="1430" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J08tAfY-yrUdoFLxVI3k-101" value="6.4. projstgsRp := getProjectStages(projectId)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="985" y="1530" width="270" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
