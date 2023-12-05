@@ -1,0 +1,159 @@
+<mxfile host="Electron" modified="2023-12-05T16:04:53.350Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="NqWzH_dbVc2CcQ1rxEMj" version="21.6.8" type="device">
+  <diagram name="Página-1" id="jJOr5OBtsucUEJ_V4yex">
+    <mxGraphModel dx="989" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="210" as="targetPoint" />
+            <mxPoint x="240.02857142857147" y="300" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-4" value="calculateProject(projectId)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q48e0CXIB0TdNRz91ZE-2">
+          <mxGeometry x="0.2444" y="1" relative="1" as="geometry">
+            <mxPoint y="-54" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4q48e0CXIB0TdNRz91ZE-1" target="4q48e0CXIB0TdNRz91ZE-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="300" />
+              <mxPoint x="370" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4q48e0CXIB0TdNRz91ZE-1" target="4q48e0CXIB0TdNRz91ZE-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="440" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="310" y="400" />
+              <mxPoint x="462" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-19" value="4. stages := retrieve(projectId)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q48e0CXIB0TdNRz91ZE-18">
+          <mxGeometry x="-0.0998" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4q48e0CXIB0TdNRz91ZE-1" target="4q48e0CXIB0TdNRz91ZE-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-22" value="5.1. result += getProjetStageResult(stage.id) *" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q48e0CXIB0TdNRz91ZE-21">
+          <mxGeometry x="0.0281" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="210" as="targetPoint" />
+            <mxPoint x="260.02857142857147" y="300" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-1" value=":ProjetoManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-5" value=":DaoManager()" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-7" value="1. getProjetoDAO()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="355" y="276" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="4q48e0CXIB0TdNRz91ZE-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="329.86" as="sourcePoint" />
+            <mxPoint x="500" y="329.86" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-11" value="2. getEtapaProjetoDAO()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="335" y="304" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="4q48e0CXIB0TdNRz91ZE-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="359.72" as="sourcePoint" />
+            <mxPoint x="500" y="359.72" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="370" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-14" value="3. getCampoFormularioDAO()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="342" y="335" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-17" value=":EtapaProjetoDAO()" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="402" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" target="4q48e0CXIB0TdNRz91ZE-23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="269.4985714285715" y="550" as="sourcePoint" />
+            <mxPoint x="269.4985714285715" y="670" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-25" value="5.2. fields := getFormFields(stage.id) *" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q48e0CXIB0TdNRz91ZE-24">
+          <mxGeometry x="-0.0857" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4q48e0CXIB0TdNRz91ZE-20" target="4q48e0CXIB0TdNRz91ZE-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="520" />
+              <mxPoint x="120" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-35" value="5.4 return result" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q48e0CXIB0TdNRz91ZE-31">
+          <mxGeometry x="-0.027" y="1" relative="1" as="geometry">
+            <mxPoint x="-49" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4q48e0CXIB0TdNRz91ZE-20" target="4q48e0CXIB0TdNRz91ZE-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="310" y="580" />
+              <mxPoint x="549" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-45" value="5.3.1. sum += getFormFieldResult(fieldId) *" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q48e0CXIB0TdNRz91ZE-43">
+          <mxGeometry x="-0.0974" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-20" value=":EtapaProjetoManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="490" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-23" value=":FormularioManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="181" y="760" width="178" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-26" value=":CampoFormularioManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="660" width="178" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-40" value="6 return result" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="309.9985714285714" y="260.00428571428574" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;startArrow=classic;startFill=1;" edge="1" parent="1" source="4q48e0CXIB0TdNRz91ZE-20" target="4q48e0CXIB0TdNRz91ZE-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355" y="520" as="sourcePoint" />
+            <mxPoint x="594" y="630" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="355" y="520" />
+              <mxPoint x="355" y="550" />
+              <mxPoint x="570" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q48e0CXIB0TdNRz91ZE-48" value="5.3.2 return sum" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q48e0CXIB0TdNRz91ZE-47">
+          <mxGeometry x="-0.0974" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
