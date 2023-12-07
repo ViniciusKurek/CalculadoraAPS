@@ -1,5 +1,3 @@
-
-
 #include "components/CalculatorNat.hpp"
 #include "components/DisplayNat.hpp"
 #include "components/CPULucio.hpp"
@@ -7,6 +5,7 @@
 #include "components/KeyLucio.hpp"
 #include <iostream>
 #include <conio.h>
+#include <string>
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -119,6 +118,14 @@ int main(int argc, char** argv){
     
     std::cout << "Pressione 'q' para sair do programa" << std::endl;
     std::cout << "Pressione '" << keyOn->getSymbol() << "'" << " para ligar a calculadora" << std::endl;
+
+    // BufferDigits bf(123456789);
+    // bf.print();
+
+    // long double a;
+    // a = 123456789;
+    // std::cout << "valor de a: " << std::to_string(a) << std::endl;
+    
 
     do{
         tecla = getch();
