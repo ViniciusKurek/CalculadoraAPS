@@ -4,10 +4,12 @@
 #include "components/KeyboardLucio.hpp"
 #include "components/KeyLucio.hpp"
 #include <iostream>
-#include <termios.h>
-#include <unistd.h>
 #ifdef _WIN32
 #include <windows.h>
+#include <conio.h>
+#else
+#include <termios.h>
+#include <unistd.h>
 #endif
 
 using namespace std;
@@ -119,6 +121,23 @@ int main(int argc, char** argv){
     std::cout << "Pressione 'q' para sair do programa" << std::endl;
     std::cout << "Pressione '" << keyOn->getSymbol() << "'" << " para ligar a calculadora" << std::endl;
 
+    #ifdef _WIN32
+    
+     do{
+        tecla = getch();
+        char symbol[] = {tecla, '\0'};
+
+        try{
+            calculator->getKeyboard()->findKey(symbol)->press();
+        }catch(const char* msg){
+            std::cout << "Key not found" << std::endl;
+        }
+
+    } while(tecla != 'q');
+
+    #else
+
+
    while(true){
         // CONFIGURAÇÃO DO TERMINAL PARA LEITURA DE UM ÚNICO CARACTER
         struct termios oldt, newt;
@@ -142,6 +161,7 @@ int main(int argc, char** argv){
         }
 
     }
-    
+
+    #endif
     return 0;
 }
