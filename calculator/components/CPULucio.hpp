@@ -46,7 +46,8 @@ class BufferDigits{
 
 class CPULucio: public Cpu{
   private:
-    Display* display; 
+    Display* display;
+    bool error = false;
     bool on = false;
     bool memoryRead = false;
     bool treatPercentageEntry(Operator*);
@@ -74,5 +75,6 @@ class CPULucio: public Cpu{
     void receiveDigit(Digit) override;
     void receiveOperator(Operator*) override;
     void receiveControl(Control) override;
+
 
 };

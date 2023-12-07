@@ -99,6 +99,7 @@ void DisplayNat::setNegative(bool enable){
   
 void DisplayNat::setError(bool enable){ 
     this->error = enable;
+    this->show();
   }
 
 void DisplayNat::initShow(){
