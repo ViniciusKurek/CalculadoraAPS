@@ -4,8 +4,8 @@
 #include "components/KeyboardLucio.hpp"
 #include "components/KeyLucio.hpp"
 #include <iostream>
-#include <conio.h>
-#include <string>
+#include <termios.h>
+#include <unistd.h>
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -119,25 +119,29 @@ int main(int argc, char** argv){
     std::cout << "Pressione 'q' para sair do programa" << std::endl;
     std::cout << "Pressione '" << keyOn->getSymbol() << "'" << " para ligar a calculadora" << std::endl;
 
-    // BufferDigits bf(123456789);
-    // bf.print();
+   while(true){
+        // CONFIGURAÇÃO DO TERMINAL PARA LEITURA DE UM ÚNICO CARACTER
+        struct termios oldt, newt;
+        tcgetattr(STDIN_FILENO, &oldt);
+        newt = oldt;
+        newt.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 
-    // long double a;
-    // a = 123456789;
-    // std::cout << "valor de a: " << std::to_string(a) << std::endl;
-    
-
-    do{
-        tecla = getch();
+        tecla = getchar();
         char symbol[] = {tecla, '\0'};
+
+        // RESTAURA CONFIGURAÇÕES DO TERMINAL
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+
+        if(tecla == 'q' || tecla == 'Q') break;
 
         try{
             calculator->getKeyboard()->findKey(symbol)->press();
         }catch(const char* msg){
-            std::cout << "Key not found" << std::endl;
+            cout << msg << endl;
         }
 
-    } while(tecla != 'q');
+    }
     
     return 0;
 }
