@@ -38,15 +38,15 @@ bool CPULucio::getMRC(){
   return this->memoryRead;
 }
 
-void CPULucio::memoryReadClear(BufferDigits buffer){
+void CPULucio::memoryReadClear(){
   if(this->getMRC() == false){
-    buffer = this->mem;
+    this->getCurrentBuffer() = this->mem;
     this->setMRC(true);
-    this->showBuffer(buffer);
+    this->showBuffer(this->getCurrentBuffer());
     return;
   }
   else 
-    buffer.clear();
+    this->getCurrentBuffer().clear();
     this->mem.clear();
     this->setMRC(false);
     this->getDisplay()->setMemory(false);
@@ -272,7 +272,7 @@ void CPULucio::receiveControl(Control control) {
 
         }
       else{
-        if(this->op1.isEmpty()) this->op1.addDigit(ZERO);
+        if(this->op2.isEmpty()) this->op2.addDigit(ZERO);
         this->op2.setDecimalSeparator();
         this->showBuffer(this->op2);
 
@@ -287,8 +287,8 @@ void CPULucio::receiveControl(Control control) {
       break;
 
     case MEMORY_READ_CLEAR:
-      this->memoryReadClear(this->getCurrentBuffer());
-      this->getCurrentBuffer().clear();
+      this->memoryReadClear();
+      // this->getCurrentBuffer().clear();
       break;
 
     case EQUAL:
@@ -314,7 +314,6 @@ void CPULucio::receiveControl(Control control) {
         this->currentOperator = nullptr;
         this->getDisplay()->setMemory(true);
         this->showBuffer(this->op1);
-
       }
       else{
         this->mem = BufferDigits::calc(this->mem, this->getCurrentBuffer(), SUM);

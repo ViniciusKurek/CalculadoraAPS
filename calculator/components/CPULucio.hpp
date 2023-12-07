@@ -56,7 +56,7 @@ class CPULucio: public Cpu{
   protected:
 
     virtual void clear();
-    virtual void memoryReadClear(BufferDigits);
+    virtual void memoryReadClear();
     virtual void showBuffer(BufferDigits);
     void setError(bool);
     BufferDigits& getCurrentBuffer();
