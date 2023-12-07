@@ -2,12 +2,13 @@
 #include <iostream>
 #include <cmath>
 
+
 BufferDigits::BufferDigits(){
   this->decimalPosition = 0;
   this->decimalLocked = false;
 }
 
-BufferDigits::BufferDigits(float value){
+BufferDigits::BufferDigits(long double value){
   this->setValue(value);
 }
 
@@ -301,7 +302,10 @@ void CPULucio::receiveControl(Control control) {
           return;
         }
 
+        
+        
         this->op1 = BufferDigits::calc(this->op1, this->op2, *this->currentOperator);
+        if(this->op1.getDecimalPosition() >= 9) this->setError(true);
         this->showBuffer(this->op1);
       }
       break;
@@ -423,13 +427,17 @@ void BufferDigits::clear(){
 }
 
 
-void BufferDigits::setValue(float value){
+void BufferDigits::setValue(long double& value){
   this->clear();
 
-  int valueInt = abs(value);
+  std::cout << "valor: " << value << std::endl;
+
+  int valueInt = std::round(value);
   int count = 0;
   if(valueInt == 0) count++;
-  
+
+  std::cout << "valorInt: " << valueInt << std::endl;
+
   while(valueInt > 0){
     count++;
     valueInt = valueInt/10;
@@ -450,10 +458,15 @@ void BufferDigits::setValue(float value){
 		sValue.pop_back();		
 	}
 
+  if(sValue.size() >= 9)
+    sValue = std::to_string(value).substr(0,9);
+
   for(int i = 0; i < sValue.size(); i++){
+    
 		char c = sValue[i];
 		int digit = c - '0';
     if(i == count) this->setDecimalSeparator();
+    // std::cout << "inserindo digito " << digit << std::endl;
 		this->addDigit(this->intToDigit(digit));
 	}
   if(value < 0) this->setNegative(true);
@@ -493,7 +506,6 @@ BufferDigits BufferDigits::operator+(BufferDigits other){
 }
 
 BufferDigits BufferDigits::operator-(BufferDigits other){
-  std::cout << "Instanciando buffer com o valor" << this->getValue() - other.getValue() << std::endl;
  return BufferDigits(this->getValue() - other.getValue());
 }
 

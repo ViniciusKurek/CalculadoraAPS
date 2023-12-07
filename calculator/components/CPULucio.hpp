@@ -17,7 +17,7 @@ class BufferDigits{
     static Digit intToDigit(int);
     
     BufferDigits();
-    BufferDigits(float value);
+    BufferDigits(long double value);
 
     std::vector<Digit> getDigits();
     int getDecimalPosition();
@@ -29,7 +29,7 @@ class BufferDigits{
     bool getNegative();
     void clear();
     float getValue();
-	  void setValue(float value);
+	  void setValue(long double& value);
     void print();
     bool isEmpty();
     void setZero();
