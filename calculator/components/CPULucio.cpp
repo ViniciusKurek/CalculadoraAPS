@@ -26,6 +26,7 @@ void CPULucio::clear(){
   this->op2.clear();
   this->getDisplay()->setError(false);
   this->getDisplay()->setNegative(false);
+  this->error = false;
   this->currentOperator = nullptr;
 }
 
@@ -81,6 +82,7 @@ void CPULucio::showBuffer(BufferDigits buffer){
 
 void CPULucio::setError(bool error){
   if(this->getDisplay() == nullptr) throw "Display is not connected to CPU!";
+  this->error = error;
   this->getDisplay()->setError(error);
 }
 
@@ -89,8 +91,8 @@ void CPULucio::setDisplay(Display *display) { this->display = display; }
 
 void CPULucio::receiveDigit(Digit digit) {
   if(!this->on) return;
+  if(this->error) return;
   if(this->display == nullptr) throw "Display is not connected to CPU!";
-
 
   if(this->getMRC()) this->getCurrentBuffer().clear();
   this->setMRC(false);
@@ -201,6 +203,7 @@ bool CPULucio::treatSquareRootEntry(Operator* newOperator){
 
 void CPULucio::receiveOperator(Operator* newOperator) {
   if(!this->on) return;
+  if(this->error) return;
 
   this->setMRC(false);
 
@@ -227,12 +230,21 @@ void CPULucio::receiveOperator(Operator* newOperator) {
 
 }
 void CPULucio::receiveControl(Control control) {
+  if(control == Control::CLEAR_ERROR){
+    this->clear();
+    this->showBuffer(this->op1);
+    this->error = false;
+    return;
+  }
+
   if(control == ON){
     this->on = true;
     this->showBuffer(this->op1);
+    return;
   }
   
   if(!this->on) return;
+  if(this->error) return;
 
   if((control != MEMORY_READ_CLEAR) && (control != CLEAR_ERROR)) this->setMRC(false);
 
@@ -282,6 +294,13 @@ void CPULucio::receiveControl(Control control) {
     case EQUAL:
       if(this->currentOperator != nullptr){
         if(this->op2.isEmpty()) this->op2 = this->op1; // X + ?
+        
+        // VERIFICANDO SE A DIVISÃO É POR ZERO
+        if(*this->currentOperator == DIVISION && this->op2.getValue() == 0){
+          this->setError(true);
+          return;
+        }
+
         this->op1 = BufferDigits::calc(this->op1, this->op2, *this->currentOperator);
         this->showBuffer(this->op1);
       }

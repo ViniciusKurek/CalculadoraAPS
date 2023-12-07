@@ -127,7 +127,7 @@ int main(int argc, char** argv){
         try{
             calculator->getKeyboard()->findKey(symbol)->press();
         }catch(const char* msg){
-            cout << msg << endl;
+            std::cout << "Key not found" << std::endl;
         }
 
     } while(tecla != 'q');
