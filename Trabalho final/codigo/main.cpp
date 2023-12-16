@@ -10,6 +10,8 @@ int main(){
         SetConsoleOutputCP(CP_UTF8);
     #endif
 
+    std::cout << "TESTANDO CRUD OWNER" << std::endl << std::endl;
+
     OwnerDAO ownerDAO;
     ownerDAO.create("João", "joao@gmail.com", "123");
     Owner& matheus = ownerDAO.create("Matheus", "matheus@gmail.com", "123");
@@ -31,6 +33,9 @@ int main(){
     for(auto& o : owners2){
         std::cout << o.getId() << " - " << o.getName() << " - " << o.getEmail() << " - " << o.getPassword() << std::endl;
     }
+    std::cout << std::endl;
+
+    std::cout << "TESTANDO CRUD PROPERTY" << std::endl << std::endl;
 
     return 0;
 }
