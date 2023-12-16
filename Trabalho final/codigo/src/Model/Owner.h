@@ -6,6 +6,6 @@
 class Owner : User{
 
     public:
-    Owner(std::string id, std::string name, std::string password);
+    Owner(std::string id, std::string name, std::string email, std::string password);
 
 };
