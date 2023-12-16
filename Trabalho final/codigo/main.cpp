@@ -6,6 +6,7 @@
 #include "src/DAO/OwnerDAO.h"
 #include "src/DAO/PropertyDAO.h"
 #include "src/DAO/ProjectDAO.h"
+#include "src/DAO/StageDAO.h"
 
 int main(){
     #ifdef _WIN32
@@ -121,6 +122,43 @@ int main(){
 
     for(auto& p : projects)
         std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "TESTANDO CRUD STAGE" << std::endl << std::endl;
+
+    StageDAO stageDAO;
+    stageDAO.create("Etapa 1");
+    stageDAO.create("Etapa 2");
+    stageDAO.create("Etapa 3");
+
+    std::cout << "TODAS AS ETAPAS" << std::endl;
+
+    std::vector<Stage>& stages = stageDAO.retrieve();
+    for(auto& s : stages)
+        std::cout << s.getId() << " - " << s.getName() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "TESTANDO UPDATE" << std::endl << std::endl;
+
+    auto stage = stageDAO.retrieve("1");
+    stage.setName("Etapa 1 Atualizada");
+    stageDAO.update(stage);
+
+    for(auto& s : stages)
+        std::cout << s.getId() << " - " << s.getName() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "TESTANDO DELETE" << std::endl << std::endl;
+
+    stageDAO.remove(stage);
+
+    for(auto& s : stages)
+        std::cout << s.getId() << " - " << s.getName() << std::endl;
+
+    std::cout << std::endl;
 
     }
     catch(const char* e){
