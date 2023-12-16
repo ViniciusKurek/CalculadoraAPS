@@ -5,6 +5,7 @@
 
 #include "src/DAO/OwnerDAO.h"
 #include "src/DAO/PropertyDAO.h"
+#include "src/DAO/ProjectDAO.h"
 
 int main(){
     #ifdef _WIN32
@@ -77,6 +78,49 @@ int main(){
     propertyDAO.remove(property2);
     for(auto& p : properties)
         std::cout << p.getId() << " - " << p.getName() << " - " << p.getHighway() << " - " << p.getState() << " - " << p.getCity() << " - " << p.getNeighborhood() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "TESTANDO CRUD PROJECT" << std::endl << std::endl;
+
+    ProjectDAO projectDAO(propertyDAO);
+    projectDAO.create("2", "Projeto 1", "Descrição 1");
+    projectDAO.create("2", "Projeto 2", "Descrição 2");
+    projectDAO.create("3", "Projeto 1", "Descrição 1");
+
+    std::cout << "TODOS OS PROJETOS" << std::endl;
+
+    std::vector<Project>& projects = projectDAO.retrieve();
+    for(auto& p : projects)
+        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "TODOS OS PROJETOS DA PROPRIEDADE 2" << std::endl;
+
+    auto project = projectDAO.retrieveProperty("2");
+    for(auto& p : project)
+        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "TESTANDO UPDATE" << std::endl << std::endl;
+
+    auto project2 = projectDAO.retrieve("1");
+    project2.setName("Projeto 1 Atualizado");
+    projectDAO.update(project2);
+
+    for(auto& p : projects)
+        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "TESTANDO DELETE" << std::endl << std::endl;
+
+    projectDAO.remove(project2);
+
+    for(auto& p : projects)
+        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
 
     }
     catch(const char* e){

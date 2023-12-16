@@ -75,3 +75,5 @@ void PropertyDAO::remove(Property& property){
         }
     }
 }
+
+OwnerDAO& PropertyDAO::getOwnerDAO(){ return this->ownerDAO; }
