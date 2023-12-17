@@ -19,3 +19,17 @@ std::string ProjectStage::getComment(){ return this->form.getComment(); }
 void ProjectStage::setComment(const std::string& comment){ this->form.setComment(comment); }
 
 Stage& ProjectStage::getStage(){ return this->stage; }
+
+std::string ProjectStage::ProjectStageStatusToString(ProjectStageStatus status){
+    switch(status){
+        case ProjectStageStatus::PENDENTE:
+            return "PENDENTE";
+        case ProjectStageStatus::ENVIADO:
+            return "ENVIADO";
+        case ProjectStageStatus::APROVADO:
+            return "APROVADO";
+        case ProjectStageStatus::RECUSADO:
+            return "RECUSADO";
+    }
+    return "";
+}

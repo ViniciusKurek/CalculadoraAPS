@@ -39,4 +39,6 @@ public:
 
     Stage& getStage();
 
+    static std::string ProjectStageStatusToString(ProjectStageStatus status);
+
 };

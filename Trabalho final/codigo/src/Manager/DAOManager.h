@@ -27,6 +27,7 @@ private:
     static ProjectStageDAO projectStageDAO;
 
 public:
+    static void init(bool debug);
     static OwnerDAO& getOwnerDAO();
     static PropertyDAO& getPropertyDAO();
     static ProjectDAO& getProjectDAO();
