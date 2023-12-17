@@ -3,11 +3,7 @@
     #include <windows.h>
 #endif
 
-#include "src/DAO/OwnerDAO.h"
-#include "src/DAO/PropertyDAO.h"
-#include "src/DAO/ProjectDAO.h"
-#include "src/DAO/StageDAO.h"
-#include "src/DAO/ProjectStageDAO.h"
+#include "src/Manager/DAOManager.h"
 
 int main(){
     #ifdef _WIN32
@@ -18,24 +14,23 @@ int main(){
     
     std::cout << "TESTANDO CRUD OWNER" << std::endl << std::endl;
 
-    OwnerDAO ownerDAO;
-    ownerDAO.create("João", "joao@gmail.com", "123");
-    Owner& matheus = ownerDAO.create("Matheus", "matheus@gmail.com", "123");
-    ownerDAO.create("Fernando", "fernando@gmail.com", "123");
-    ownerDAO.remove(matheus);
+    DAOManager::getOwnerDAO().create("João", "joao@gmail.com", "123");
+    Owner& matheus = DAOManager::getOwnerDAO().create("Matheus", "matheus@gmail.com", "123");
+    DAOManager::getOwnerDAO().create("Fernando", "fernando@gmail.com", "123");
+    DAOManager::getOwnerDAO().remove(matheus);
 
-    std::vector<Owner>& owners = ownerDAO.retrieve();
+    std::vector<Owner>& owners = DAOManager::getOwnerDAO().retrieve();
     for(auto& o : owners){
         std::cout << o.getId() << " - " << o.getName() << " - " << o.getEmail() << " - " << o.getPassword() << std::endl;
     }
 
-    auto owner = ownerDAO.retrieve("3");
+    auto owner = DAOManager::getOwnerDAO().retrieve("3");
     owner.setName("Fernando 2");
-    ownerDAO.update(owner);
+    DAOManager::getOwnerDAO().update(owner);
 
     std::cout << std::endl;
 
-    std::vector<Owner>& owners2 = ownerDAO.retrieve();
+    std::vector<Owner>& owners2 = DAOManager::getOwnerDAO().retrieve();
     for(auto& o : owners2){
         std::cout << o.getId() << " - " << o.getName() << " - " << o.getEmail() << " - " << o.getPassword() << std::endl;
     }
@@ -43,14 +38,13 @@ int main(){
 
     std::cout << "TESTANDO CRUD PROPERTY" << std::endl << std::endl;
 
-    PropertyDAO propertyDAO(ownerDAO);
-    propertyDAO.create("1", "Casa 1", "BR-101", "SC", "Florianópolis", "Centro");
-    propertyDAO.create("1", "Casa 2", "BR-101", "SC", "Florianópolis", "Centro");
-    propertyDAO.create("3", "Chácara é os guri", "BR-312", "PR", "Campo Mourão", "Centro");
+    DAOManager::getPropertyDAO().create("1", "Casa 1", "BR-101", "SC", "Florianópolis", "Centro");
+    DAOManager::getPropertyDAO().create("1", "Casa 2", "BR-101", "SC", "Florianópolis", "Centro");
+    DAOManager::getPropertyDAO().create("3", "Chácara é os guri", "BR-312", "PR", "Campo Mourão", "Centro");
 
     std::cout << "TODAS AS PROPRIEDADES" << std::endl;
 
-    std::vector<Property>& properties = propertyDAO.retrieve();
+    std::vector<Property>& properties = DAOManager::getPropertyDAO().retrieve();
     for(auto& p : properties)
         std::cout << p.getId() << " - " << p.getName() << " - " << p.getHighway() << " - " << p.getState() << " - " << p.getCity() << " - " << p.getNeighborhood() << std::endl;
 
@@ -58,16 +52,16 @@ int main(){
 
     std::cout << "TODAS AS PROPRIEDADES DO DONO 1" << std::endl;
 
-    auto property = propertyDAO.retrieveOwner("1");
+    auto property = DAOManager::getPropertyDAO().retrieveOwner("1");
     for(auto& p : property)
         std::cout << p.getId() << " - " << p.getName() << " - " << p.getHighway() << " - " << p.getState() << " - " << p.getCity() << " - " << p.getNeighborhood() << std::endl;
 
 
     std::cout << "TESTANDO UPDATE" << std::endl << std::endl;
 
-    auto property2 = propertyDAO.retrieve("1");
+    auto property2 = DAOManager::getPropertyDAO().retrieve("1");
     property2.setName("Casa 1 Atualizada");
-    propertyDAO.update(property2);
+    DAOManager::getPropertyDAO().update(property2);
 
     std::cout << "TODAS AS PROPRIEDADES" << std::endl;
 
@@ -77,130 +71,9 @@ int main(){
 
     std::cout << "TESTANDO DELETE" << std::endl << std::endl;
 
-    propertyDAO.remove(property2);
+    DAOManager::getPropertyDAO().remove(property2);
     for(auto& p : properties)
         std::cout << p.getId() << " - " << p.getName() << " - " << p.getHighway() << " - " << p.getState() << " - " << p.getCity() << " - " << p.getNeighborhood() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO CRUD PROJECT" << std::endl << std::endl;
-
-    ProjectDAO projectDAO(propertyDAO);
-    projectDAO.create("2", "Projeto 1", "Descrição 1");
-    projectDAO.create("2", "Projeto 2", "Descrição 2");
-    projectDAO.create("3", "Projeto 1", "Descrição 1");
-
-    std::cout << "TODOS OS PROJETOS" << std::endl;
-
-    std::vector<Project>& projects = projectDAO.retrieve();
-    for(auto& p : projects)
-        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TODOS OS PROJETOS DA PROPRIEDADE 2" << std::endl;
-
-    auto project = projectDAO.retrieveProperty("2");
-    for(auto& p : project)
-        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO UPDATE" << std::endl << std::endl;
-
-    auto project2 = projectDAO.retrieve("1");
-    project2.setName("Projeto 1 Atualizado");
-    projectDAO.update(project2);
-
-    for(auto& p : projects)
-        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO DELETE" << std::endl << std::endl;
-
-    projectDAO.remove(project2);
-
-    for(auto& p : projects)
-        std::cout << p.getId() << " - " << p.getName() << " - " << p.getDescription() << " - " << p.getStatus() << " - " << p.getResult() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO CRUD STAGE" << std::endl << std::endl;
-
-    StageDAO stageDAO;
-    stageDAO.create("Etapa 1");
-    stageDAO.create("Etapa 2");
-    stageDAO.create("Etapa 3");
-
-    std::cout << "TODAS AS ETAPAS" << std::endl;
-
-    std::vector<Stage>& stages = stageDAO.retrieve();
-    for(auto& s : stages)
-        std::cout << s.getId() << " - " << s.getName() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO UPDATE" << std::endl << std::endl;
-
-    auto stage = stageDAO.retrieve("1");
-    stage.setName("Etapa 1 Atualizada");
-    stageDAO.update(stage);
-
-    for(auto& s : stages)
-        std::cout << s.getId() << " - " << s.getName() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO DELETE" << std::endl << std::endl;
-
-    stageDAO.remove(stage);
-
-    for(auto& s : stages)
-        std::cout << s.getId() << " - " << s.getName() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO CRUD PROJECT STAGE" << std::endl << std::endl;
-
-    ProjectStageDAO projectStageDAO(projectDAO, stageDAO);
-    projectStageDAO.create("2", "2");
-    projectStageDAO.create("3", "3");
-    projectStageDAO.create("2", "2");
-    projectStageDAO.create("3", "3");
-
-    std::cout << "TODAS AS ETAPAS DE PROJETOS" << std::endl;
-
-    std::vector<ProjectStage>& projectStages = projectStageDAO.retrieve();
-    for(auto& ps : projectStages)
-        std::cout << ps.getId() << " - " << ps.getStage().getName() << " - " << ps.getStatus() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TODAS AS ETAPAS DE PROJETOS DA ETAPA 2" << std::endl;
-    auto projectStage2 = projectStageDAO.retrieveStage("2");
-    for(auto& ps : projectStage2)
-        std::cout << ps.getId() << " - " << ps.getStage().getName() << " - " << ps.getStatus() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO UPDATE" << std::endl << std::endl;
-
-    ProjectStage projectStage3 = projectStageDAO.retrieve("1");
-    projectStage3.setStatus(ProjectStageStatus::APROVADO);
-    projectStageDAO.update(projectStage3);
-
-    for(auto& ps : projectStages)
-        std::cout << ps.getId() << " - " << ps.getStage().getName() << " - " << ps.getStatus() << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << "TESTANDO DELETE" << std::endl << std::endl;
-
-    projectStageDAO.remove(projectStage3);
-
-    for(auto& ps : projectStages)
-        std::cout << ps.getId() << " - " << ps.getStage().getName() << " - " << ps.getStatus() << std::endl;
 
     std::cout << std::endl;
     

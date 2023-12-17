@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Stage.h"
+#include "Form.h"
 #include <string>
 
 enum ProjectStageStatus{
@@ -14,6 +15,7 @@ class ProjectStage{
 
 private:
     Stage stage;
+    Form form;
 
 protected:
     std::string id;
@@ -31,6 +33,9 @@ public:
 
     ProjectStageStatus getStatus();
     void setStatus(ProjectStageStatus status);
+
+    std::string getComment();
+    void setComment(const std::string& comment);
 
     Stage& getStage();
 
