@@ -52,6 +52,7 @@ class CPULucio: public Cpu{
     bool memoryRead = false;
     bool treatPercentageEntry(Operator*);
     bool treatSquareRootEntry(Operator*);
+    BufferDigits* currentBuffer;
 
   protected:
 
@@ -59,13 +60,14 @@ class CPULucio: public Cpu{
     virtual void memoryReadClear();
     virtual void showBuffer(BufferDigits);
     void setError(bool);
-    BufferDigits& getCurrentBuffer();
-
-
+    BufferDigits* getCurrentBuffer();
+    void setCurrentBuffer(BufferDigits*);
+    
     Operator* currentOperator = nullptr;
     BufferDigits op1;
     BufferDigits op2;
     BufferDigits mem;
+
 
   public:
     Display* getDisplay() override;
@@ -75,6 +77,7 @@ class CPULucio: public Cpu{
     void receiveDigit(Digit) override;
     void receiveOperator(Operator*) override;
     void receiveControl(Control) override;
+
 
 
 };

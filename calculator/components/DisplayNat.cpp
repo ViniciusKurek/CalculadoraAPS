@@ -90,17 +90,17 @@ void DisplayNat::showDigit(int digitIndex, int row, int col){
  }
 
 void DisplayNat::setMemory(bool enable){ 
-    this->memory = enable;
-  }
+  this->memory = enable;
+}
   
 void DisplayNat::setNegative(bool enable){ 
-    this->negative =  enable;
-  }
+  this->negative =  enable;
+}
   
 void DisplayNat::setError(bool enable){ 
-    this->error = enable;
-    this->show();
-  }
+  this->error = enable;
+  this->show();
+}
 
 void DisplayNat::initShow(){
   Console::setColor(Color::BG_Green);  
@@ -110,17 +110,17 @@ void DisplayNat::initShow(){
 
 void DisplayNat::evaluateDigit(Digit digit, int i){
   switch(digit){
-      case ZERO: this->showDigit(0, 1, i+1); break;
-      case ONE: this->showDigit(1, 1, i+1); break;
-      case TWO: this->showDigit(2, 1, i+1); break;
-      case THREE: this->showDigit(3, 1, i+1); break;
-      case FOUR: this->showDigit(4, 1, i+1); break;
-      case FIVE: this->showDigit(5, 1, i+1); break;
-      case SIX: this->showDigit(6, 1, i+1); break;
-      case SEVEN: this->showDigit(7, 1, i+1); break;
-      case EIGHT: this->showDigit(8, 1, i+1); break;
-      case NINE: this->showDigit(9, 1, i+1); break;
-      default:
-       this->error = true; break;
-   }
+    case ZERO: this->showDigit(0, 1, i+1); break;
+    case ONE: this->showDigit(1, 1, i+1); break;
+    case TWO: this->showDigit(2, 1, i+1); break;
+    case THREE: this->showDigit(3, 1, i+1); break;
+    case FOUR: this->showDigit(4, 1, i+1); break;
+    case FIVE: this->showDigit(5, 1, i+1); break;
+    case SIX: this->showDigit(6, 1, i+1); break;
+    case SEVEN: this->showDigit(7, 1, i+1); break;
+    case EIGHT: this->showDigit(8, 1, i+1); break;
+    case NINE: this->showDigit(9, 1, i+1); break;
+    default:
+    this->error = true; break;
+  }
 }
