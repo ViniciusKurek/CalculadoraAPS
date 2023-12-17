@@ -33,3 +33,5 @@ void Property::setCity(const std::string &city){ this->city = city; }
 
 std::string Property::getNeighborhood() const{ return this->neighborhood; }
 void Property::setNeighborhood(const std::string &neighborhood){ this->neighborhood = neighborhood; }
+
+std::vector<Project>& Property::getProjects(){ return this->projects; }

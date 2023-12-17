@@ -25,5 +25,6 @@ public:
     std::vector<Property>& retrieveOwner(std::string ownerId);
     void update(Property& property);
     void remove(Property& property);
+    OwnerDAO& getOwnerDAO();
 
 };

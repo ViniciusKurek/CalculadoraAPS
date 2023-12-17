@@ -2,8 +2,12 @@
 
 #include <string>
 #include <vector>
+#include "Project.h"
 
 class Property{
+
+private:
+    std::vector<Project> projects;
     
 protected:
     std::string id;
@@ -39,4 +43,6 @@ public:
     
     std::string getNeighborhood() const;
     void setNeighborhood(const std::string& neighborhood);
+
+    std::vector<Project>& getProjects();
 };
