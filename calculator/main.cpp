@@ -129,6 +129,7 @@ int main(int argc, char** argv){
 
         try{
             calculator->getKeyboard()->findKey(symbol)->press();
+            Beep(2000,300);
         }catch(const char* msg){
             std::cout << "Key not found" << std::endl;
         }
@@ -138,7 +139,7 @@ int main(int argc, char** argv){
     #else
 
 
-   while(true){
+    while(true){
         // CONFIGURAÇÃO DO TERMINAL PARA LEITURA DE UM ÚNICO CARACTER
         struct termios oldt, newt;
         tcgetattr(STDIN_FILENO, &oldt);
