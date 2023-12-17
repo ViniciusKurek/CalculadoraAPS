@@ -3,7 +3,7 @@
 Project::Project(std::string id, 
     std::string name, 
     std::string description, 
-    ProjectStatus status, 
+    ProjectStatus::Status status, 
     float result)
 {
     this->id = id;
@@ -22,8 +22,10 @@ void Project::setName(const std::string& name){ this->name = name; }
 std::string Project::getDescription() const{ return this->description; }
 void Project::setDescription(const std::string& description){ this->description = description; }
 
-ProjectStatus Project::getStatus() const{ return this->status; }
-void Project::setStatus(ProjectStatus status){ this->status = status; }
+ProjectStatus::Status Project::getStatus() const{ return this->status; }
+void Project::setStatus(ProjectStatus::Status status){ this->status = status; }
 
 float Project::getResult() const{ return this->result; }
 void Project::setResult(float result){ this->result = result; }
+
+std::vector<ProjectStage>& Project::getProjectStages(){ return this->projectStages; }

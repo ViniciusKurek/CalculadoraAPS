@@ -9,6 +9,7 @@ private:
     std::string name;
 
 public:
+    Stage() = default;
     Stage(std::string id, std::string name);
 
     std::string getId();

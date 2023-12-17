@@ -15,7 +15,7 @@ public:
     std::vector<Project>& retrieve();
     Project& retrieve(std::string projectId);
     std::vector<Project>& retrieveProperty(std::string propertyId);
-    std::vector<Project>& retrieveProperty(std::string propertyId, ProjectStatus status);
+    std::vector<Project>& retrieveProperty(std::string propertyId, ProjectStatus::Status status);
     void update(Project& project);
     void remove(Project& project);
     PropertyDAO& getPropertyDAO();

@@ -8,7 +8,7 @@ Project& ProjectDAO::create(std::string propertyId, std::string name, std::strin
     if (this->projects.size() > 0)
         id = std::to_string(std::stoi(this->projects.back().getId()) + 1);
 
-    Project* project = new Project(id, name, description, PENDENTE, 0);
+    Project* project = new Project(id, name, description, ProjectStatus::Status::PENDENTE, 0);
     this->projects.push_back(*project);
     this->propertyDao.retrieve(propertyId).getProjects().push_back(*project);
     return *project;
@@ -33,7 +33,7 @@ std::vector<Project>& ProjectDAO::retrieveProperty(std::string propertyId){
     return projects;
 }
 
-std::vector<Project>& ProjectDAO::retrieveProperty(std::string propertyId, ProjectStatus status){
+std::vector<Project>& ProjectDAO::retrieveProperty(std::string propertyId, ProjectStatus::Status status){
     Property& property = this->propertyDao.retrieve(propertyId);
     std::vector<Project>& projects = property.getProjects();
     std::vector<Project>* projectsByStatus = new std::vector<Project>();

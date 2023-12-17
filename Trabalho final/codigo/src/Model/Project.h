@@ -1,25 +1,32 @@
 #pragma once
 
+#include "ProjectStage.h"
 #include <string>
+#include <vector>
 
-enum ProjectStatus{
-    PENDENTE, FINALIZADO
-};
+namespace ProjectStatus{
+    enum Status{
+        PENDENTE, FINALIZADO
+    };
+}
 
 class Project{
+
+private:
+    std::vector<ProjectStage> projectStages;
     
 protected:
     std::string id;
     std::string name;
     std::string description;
-    ProjectStatus status;
+    ProjectStatus::Status status;
     float result;
 
 public:
     Project(std::string id, 
         std::string name, 
         std::string description, 
-        ProjectStatus status, 
+        ProjectStatus::Status status, 
         float result);
     
     std::string getId() const;
@@ -31,10 +38,12 @@ public:
     std::string getDescription() const;
     void setDescription(const std::string& description);
 
-    ProjectStatus getStatus() const;
-    void setStatus(ProjectStatus status);
+    ProjectStatus::Status getStatus() const;
+    void setStatus(ProjectStatus::Status status);
 
     float getResult() const;
     void setResult(float result);
+
+    std::vector<ProjectStage>& getProjectStages();
 
 };
