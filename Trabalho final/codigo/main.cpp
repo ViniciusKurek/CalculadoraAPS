@@ -1,12 +1,16 @@
-#include "src/Display/Console.h"
 #include <iostream>
+#ifdef _WIN32
+    #include <windows.h>
+#endif
+
+#include "src/Manager/DAOManager.h"
 
 int main(){
-    Console::init();
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+    #endif
 
-    try{
-        Console::show();
-    }catch(const char* error){
-        Console::show(error);
-    }
+    DAOManager::init(true);
+
+    return 0;
 }

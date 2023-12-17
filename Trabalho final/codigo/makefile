@@ -1,6 +1,4 @@
-SRC = src
-INCLUDES = $(SRC)/Display/*.cpp $(SRC)/Display/Modules/Base/*.cpp $(SRC)/Display/Modules/*.cpp 
-CC = g++
+LIB=src/Model/*.cpp src/DAO/*.cpp src/Manager/*.cpp
 
 all:
-	$(CC) main.cpp $(INCLUDES)
+	g++ main.cpp -o main -std=c++11 $(LIB)
