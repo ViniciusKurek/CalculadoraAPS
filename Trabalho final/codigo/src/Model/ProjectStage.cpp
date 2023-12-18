@@ -19,6 +19,7 @@ std::string ProjectStage::getComment(){ return this->form.getComment(); }
 void ProjectStage::setComment(const std::string& comment){ this->form.setComment(comment); }
 
 Stage& ProjectStage::getStage(){ return this->stage; }
+void ProjectStage::setStage(const Stage& stage){ this->stage = stage; }
 
 std::string ProjectStage::ProjectStageStatusToString(ProjectStageStatus status){
     switch(status){

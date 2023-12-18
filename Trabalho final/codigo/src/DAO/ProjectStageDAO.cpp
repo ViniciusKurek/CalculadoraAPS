@@ -1,4 +1,6 @@
 #include "ProjectStageDAO.h"
+#include "../Manager/DAOManager.h"
+#include <iostream>
 
 ProjectStageDAO::ProjectStageDAO(ProjectDAO& projectDAO, StageDAO& stageDAO)
     : projectDAO(projectDAO), stageDAO(stageDAO) {}
@@ -13,8 +15,11 @@ ProjectStage& ProjectStageDAO::create(std::string stageId, std::string projectId
     Stage stage = this->stageDAO.retrieve(stageId);
 
     ProjectStage* projectStage = new ProjectStage(id);
+    projectStage->setStage(stage);
+
     project.getProjectStages().push_back(*projectStage);
-    projectStage->getStage() = stage;
+    DAOManager::getProjectDAO().update(project);
+    
     this->projectStages.push_back(*projectStage);
     return *projectStage;
 }
@@ -40,12 +45,12 @@ std::vector<ProjectStage>& ProjectStageDAO::retrieveStage(std::string stageId){
     return *projectStages;
 }
 
-std::vector<ProjectStage>& ProjectStageDAO::retrieveProperty(std::string projectId){
+std::vector<ProjectStage>& ProjectStageDAO::retrieveProject(std::string projectId){
     Project project = this->projectDAO.retrieve(projectId);
     return project.getProjectStages();
 }
 
-std::vector<ProjectStage>& ProjectStageDAO::retrieveProperty(std::string projectId, ProjectStageStatus status){
+std::vector<ProjectStage>& ProjectStageDAO::retrieveProject(std::string projectId, ProjectStageStatus status){
     Project project = this->projectDAO.retrieve(projectId);
     std::vector<ProjectStage>* projectStages = new std::vector<ProjectStage>();
     for(auto& ps : project.getProjectStages())

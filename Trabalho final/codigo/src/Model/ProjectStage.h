@@ -38,6 +38,7 @@ public:
     void setComment(const std::string& comment);
 
     Stage& getStage();
+    void setStage(const Stage& stage);
 
     static std::string ProjectStageStatusToString(ProjectStageStatus status);
 

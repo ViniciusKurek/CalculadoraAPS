@@ -18,8 +18,8 @@ public:
     std::vector<ProjectStage>& retrieve();
     ProjectStage& retrieve(std::string projectStageId);
     std::vector<ProjectStage>& retrieveStage(std::string stageId);
-    std::vector<ProjectStage>& retrieveProperty(std::string projectId);
-    std::vector<ProjectStage>& retrieveProperty(std::string projectId, ProjectStageStatus status);
+    std::vector<ProjectStage>& retrieveProject(std::string projectId);
+    std::vector<ProjectStage>& retrieveProject(std::string projectId, ProjectStageStatus status);
     void update(ProjectStage& projectStage);
     void remove(ProjectStage& projectStage);
 
