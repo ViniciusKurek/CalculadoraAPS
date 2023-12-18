@@ -151,10 +151,11 @@ int main(){
 
     DAOManager::init(false);
 
+    bool clear = false;
     while(true)
     {
         // LIMPA O TERMINAL
-        std::cout << "\033[2J\033[1;1H";
+        if(clear) std::cout << "\033[2J\033[1;1H";
 
         std::string op;
         std::cout << "Digite 1 para enviar feedback do formulário" << std::endl;
@@ -162,6 +163,7 @@ int main(){
         std::cout << "Digite 'q' para sair" << std::endl;
         std::cin >> op;
         std::cout << std::endl;
+        clear = true;
 
         if(op == "1") sendFeedbackForm();
         else if(op == "2") getFeedbackForm();
