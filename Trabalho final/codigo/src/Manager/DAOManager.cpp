@@ -30,7 +30,8 @@ void DAOManager::init(bool debug){
     DAOManager::getProjectDAO().create("1", "Carbono escopo 3 2023/2", "Lorem ipsum dolor sit amet");
 
     // ETAPAS DO PROJETO INICIAL
-    DAOManager::getProjectStageDAO().create("1", "1");
+    ProjectStage stage = DAOManager::getProjectStageDAO().create("1", "1");
+
     ProjectStage stage2 = DAOManager::getProjectStageDAO().create("2", "1");
     stage2.setStatus(ProjectStageStatus::ENVIADO);
     DAOManager::getProjectStageDAO().update(stage2);
@@ -70,7 +71,8 @@ void DAOManager::init(bool debug){
         std::cout << "ETAPAS DO PROJETO CRIADAS" << std::endl;
         for(ProjectStage projectStage : DAOManager::getProjectStageDAO().retrieve())
             std::cout << "\t" << projectStage.getId() << " - " << projectStage.getStage().getName() << " - " << ProjectStage::ProjectStageStatusToString(projectStage.getStatus()) << std::endl;
-
+        
+        std::cout << "\n\n ------------------------------------------ \n\n";
     }
 }
 

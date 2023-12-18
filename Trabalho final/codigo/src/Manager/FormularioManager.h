@@ -10,7 +10,8 @@ private:
     void repproveForm(std::string projectStageId, std::string comment);
 
 public:
-    FormularioManager();
-    void feedbackForm(std::string ownerId, std::string comment, bool aprove);
+    FormularioManager() = default;
+    void feedbackForm(std::string projectStageId, std::string comment, bool aprove);
+    void getFeedbackForm(std::string projectStageId);
 
 };
