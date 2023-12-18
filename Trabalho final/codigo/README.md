@@ -11,3 +11,5 @@
 
 ### IMPLEMENTAÇÕES
 - Para o sistema funcionar como queríamos, os DAOs precisaram ser estáticos, pois era neles que ficava o repositório de objetos de determinado conceito, consequentemente, só poderia haver um único DAO de cada tipo no sistema inteiro, e quem gerencia isso é o <b>DAOManager</b>. Entendemos que no mundo real isso não deveria ser feito, já que usariamos conexão com o banco de dados e cada DAO compartilharia do mesmo repositório.
+
+- Por isso carregamos o sistema com alguns dados iniciais, proprietário, propriedade, projeto, etc... Para ver quais são estes dados iniciais basta chamar o método ``DAOManager::init(bool)`` com o parâmetro <b>true</b> (debug=true). E para alterar estes dados, basta observar a implementação do mesmo método, colocando os novos dados desejados;
