@@ -78,6 +78,4 @@ class CPULucio: public Cpu{
     void receiveOperator(Operator*) override;
     void receiveControl(Control) override;
 
-
-
 };
