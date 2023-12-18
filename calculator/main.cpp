@@ -4,6 +4,7 @@
 #include "components/KeyboardLucio.hpp"
 #include "components/KeyLucio.hpp"
 #include <iostream>
+#include <cctype>
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
@@ -124,7 +125,7 @@ int main(int argc, char** argv){
     #ifdef _WIN32
     
      do{
-        tecla = getch();
+        tecla = std::tolower(getch());
         char symbol[] = {tecla, '\0'};
 
         try{

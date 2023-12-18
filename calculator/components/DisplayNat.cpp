@@ -18,9 +18,10 @@ std::string symbols[][5] = {
 };
 
 void DisplayNat::add(Digit digit){
-  if(this->digitsCount == this->MAX_DIGITS) return;
-  this->digits[this->digitsCount++] = digit;
-  this->show();
+  if(this->digitsCount <= this->MAX_DIGITS){
+    this->digits[this->digitsCount++] = digit;
+    this->show();
+  }
 }
 
 void DisplayNat::setDecimalSeparator(){
@@ -40,8 +41,6 @@ void DisplayNat::show(){
 
   for(int i= 0; i < this->digitsCount; i++)
     this->evaluateDigit(this->digits[i], i);
-    
- 
   
   this->showControls(1, 0);
 }
@@ -85,9 +84,8 @@ void DisplayNat::showDigit(int digitIndex, int row, int col){
   }
   if(this->decimalSeparatorPosition == col){
    std::cout << "▗";  
-   
   } 
- }
+}
 
 void DisplayNat::setMemory(bool enable){ 
   this->memory = enable;

@@ -1,6 +1,8 @@
 #include "CPULucio.hpp"
 #include <iostream>
 #include <cmath>
+#include <sstream>
+#include <iomanip>
 
 BufferDigits::BufferDigits(){
   this->decimalPosition = 0;
@@ -51,14 +53,13 @@ void CPULucio::memoryReadClear(){
     this->mem.clear();
     this->setMRC(false);
     this->getDisplay()->setMemory(false);
+    this->getDisplay()->setNegative(false);
     this->showBuffer(*old);
     return;
 
 }
 
 BufferDigits* CPULucio::getCurrentBuffer(){
-  // if(this->currentOperator != nullptr) return this->op2;
-  // return this->op1;
   return this->currentBuffer;
 }
 
@@ -77,7 +78,6 @@ void CPULucio::showBuffer(BufferDigits buffer){
 
   this->getDisplay()->setMemory(!this->mem.isEmpty());
   this->getDisplay()->setNegative(buffer.getNegative());
-  // this->getDisplay()->setMemory(this->mem.isEmpty() == false);
 
   for(int i = 0; i < digits.size(); i++){
     if(i != 0 && i == buffer.getDecimalPosition())
@@ -101,14 +101,17 @@ void CPULucio::receiveDigit(Digit digit) {
   if(this->error) return;
   if(this->display == nullptr) throw "Display is not connected to CPU!";
 
-  if(this->getCurrentBuffer()->getDigits().size() >= this->getDisplay()->MAX_DIGITS) return;
-
-
   if(this->getMRC()) this->getCurrentBuffer()->clear();
   this->setMRC(false);
 
-  if(this->currentOperator != nullptr && this->getCurrentBuffer() != &this->op2) this->op2.clear();
+  if((this->getCurrentBuffer() == &this->op1 && !this->op2.isEmpty()) && this->currentOperator != nullptr){
+    this->op1.clear();
+    this->op2.clear();
+    this->currentOperator = nullptr;
+  }
 
+  if(this->currentOperator != nullptr && this->getCurrentBuffer() != &this->op2) this->op2.clear();
+  
   if(this->currentOperator == nullptr) this->setCurrentBuffer(&this->op1);
   else this->setCurrentBuffer(&this->op2);
 
@@ -117,11 +120,14 @@ void CPULucio::receiveDigit(Digit digit) {
       this->getCurrentBuffer()->addDigit(digit);
     else if(digit != ZERO)
       this->getCurrentBuffer()->addDigit(digit);
-  }else
-    this->getCurrentBuffer()->addDigit(digit);
+  }else{
+    if(this->getCurrentBuffer()->getDigits().size() < this->getDisplay()->MAX_DIGITS){
+      this->getCurrentBuffer()->addDigit(digit);
+    }else
+      return;
+  }
 
   this->showBuffer(*this->getCurrentBuffer());
-
 }
 
 bool CPULucio::treatPercentageEntry(Operator* newOperator){
@@ -221,14 +227,17 @@ void CPULucio::receiveOperator(Operator* newOperator) {
       this->op1.setZero();
     this->currentOperator = newOperator;
     this->showBuffer(this->op1);
-  }
-  else {
+
+  }else {
     if(this->op2.isEmpty()) this->currentOperator = newOperator;
     else if (this->getCurrentBuffer() != &this->op1){
       this->op1 = BufferDigits::calc(this->op1, this->op2, *this->currentOperator);
       this->currentOperator = newOperator;
       this->op2.clear();
       this->showBuffer(this->op1);
+    }else{
+      this->currentOperator = newOperator;
+      this->op2.clear();
     }
   }
 
@@ -285,10 +294,7 @@ void CPULucio::receiveControl(Control control) {
         if(this->op2.isEmpty()) this->op2.addDigit(ZERO);
         this->op2.setDecimalSeparator();
         this->showBuffer(this->op2);
-
       }
-
-
       break;
 
     case CLEAR_ERROR: 
@@ -333,7 +339,7 @@ void CPULucio::receiveControl(Control control) {
         BufferDigits *bckp = this->getCurrentBuffer();
         *old = *bckp;
         this->mem = BufferDigits::calc(this->mem, *old, SUM);
-        this->setCurrentBuffer(&this->mem);
+        this->setCurrentBuffer(&(*old));
         this->getDisplay()->setMemory(true);
         if(isEmpty)
           this->showBuffer(*this->getCurrentBuffer());
@@ -359,7 +365,7 @@ void CPULucio::receiveControl(Control control) {
         BufferDigits *bckp = this->getCurrentBuffer();
         *old = *bckp;
         this->mem = BufferDigits::calc(this->mem, *old, SUBTRACTION);
-        this->setCurrentBuffer(&this->mem);
+        this->setCurrentBuffer(&(*old));
         this->getDisplay()->setMemory(true);
         if(isEmpty)
           this->showBuffer(*this->getCurrentBuffer());
@@ -456,11 +462,9 @@ void BufferDigits::clear(){
 
 
 void BufferDigits::setValue(long double& value){
-
   this->clear();
-  
-  int valueInt = std::round(value);
-
+ 
+  int valueInt = std::trunc(value);
 
   int count = 0;
   if(valueInt == 0) count++;
@@ -470,7 +474,10 @@ void BufferDigits::setValue(long double& value){
     count++;
     valueInt = valueInt/10;
   }
-  std::string temp = std::to_string(abs(value));
+  
+  std::ostringstream stream;
+  stream << std::fixed << std::setprecision(7) << abs(value);
+  std::string temp = stream.str();
   std::string sValue;
 
 
@@ -479,16 +486,13 @@ void BufferDigits::setValue(long double& value){
   }
 
   for(int i = sValue.size() - 1; i >= count; i--){
-		
-		if(sValue[i] != '0')
-			break;
-
-		sValue.pop_back();		
-	}
-
-
+    if(sValue[i] != '0')
+      break;
+    sValue.pop_back();		
+  }
+  
   if(sValue.size() >= 9)
-    sValue = std::to_string(value).substr(0,9);
+    sValue = std::to_string(value).substr(0,9); 
 
   for(int i = 0; i < sValue.size(); i++){
     
